@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<XMI xmi.version="2.1" xmlns:uml="http://www.omg.org/spec/UML/20090901">
+  <uml:Model xmi:type="uml:Model" name="TextAdventureGame">
+    <packagedElement xmi:type="uml:Class" name="GameStateManager">
+      <ownedAttribute name="location" type="string"/>
+      <ownedAttribute name="inventory" type="string[]"/>
+      <ownedOperation name="getState" returnType="GameState"/>
+      <ownedOperation name="updateState">
+        <parameter name="updates" type="Partial<GameState>"/>
+      </ownedOperation>
+    </packagedElement>
+
+    <packagedElement xmi:type="uml:Class" name="InputHandler">
+      <ownedOperation name="handleInputChange">
+        <parameter name="e" type="React.ChangeEvent<HTMLInputElement>"/>
+        <parameter name="setInput" type="(input: string) => void"/>
+      </ownedOperation>
+      <ownedOperation name="handleInputSubmit">
+        <parameter name="e" type="React.FormEvent<HTMLFormElement>"/>
+        <parameter name="input" type="string"/>
+        <parameter name="processCommand" type="(command: string) => string | null"/>
+      </ownedOperation>
+    </packagedElement>
+
+    <packagedElement xmi:type="uml:Class" name="CommandParser">
+      <ownedOperation name="parse" returnType="string">
+        <parameter name="command" type="string"/>
+      </ownedOperation>
+    </packagedElement>
+
+    <packagedElement xmi:type="uml:Class" name="ActionDispatcher">
+      <ownedAttribute name="gameStateManager" type="GameStateManager"/>
+      <ownedOperation name="executeCommand" returnType="string">
+        <parameter name="command" type="string"/>
+      </ownedOperation>
+      <ownedOperation name="getLocationDescription" returnType="string">
+        <parameter name="location" type="string"/>
+      </ownedOperation>
+    </packagedElement>
+
+    <packagedElement xmi:type="uml:Class" name="OutputRenderer">
+      <ownedOperation name="render" returnType="string[]">
+        <parameter name="lines" type="string[]"/>
+        <parameter name="newLine" type="string"/>
+      </ownedOperation>
+    </packagedElement>
+
+    <packagedElement xmi:type="uml:Class" name="EventSystem">
+      <ownedAttribute name="gameStateManager" type="GameStateManager"/>
+      <ownedOperation name="checkTriggers"/>
+    </packagedElement>
+
+    <packagedElement xmi:type="uml:Class" name="GameLoop">
+      <ownedAttribute name="gameStateManager" type="GameStateManager"/>
+      <ownedAttribute name="inputHandler" type="InputHandler"/>
+      <ownedAttribute name="commandParser" type="CommandParser"/>
+      <ownedAttribute name="actionDispatcher" type="ActionDispatcher"/>
+      <ownedAttribute name="outputRenderer" type="OutputRenderer"/>
+      <ownedAttribute name="eventSystem" type="EventSystem"/>
+      <ownedOperation name="start" returnType="string[]">
+        <parameter name="input" type="string"/>
+      </ownedOperation>
+    </packagedElement>
+
+  </uml:Model>
+</XMI>

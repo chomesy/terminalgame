@@ -1,0 +1,58 @@
+@startuml
+
+class GameStateManager {
+    - location: string
+    - inventory: string[]
+    + getState(): GameState
+    + updateState(updates: Partial<GameState>): void
+}
+
+class storyContent {
+    + locations: Map<string, string>
+}
+
+class InputHandler {
+    + handleInputChange(e: React.ChangeEvent<HTMLInputElement>, setInput: (input: string) => void): void
+    + handleInputSubmit(e: React.FormEvent<HTMLFormElement>, input: string, processCommand: (command: string) => string | null): void
+}
+
+class CommandParser {
+    + parse(command: string): string
+}
+
+class ActionDispatcher {
+    - gameStateManager: GameStateManager
+    + executeCommand(command: string): string
+    + getLocationDescription(location: string): string
+}
+
+class OutputRenderer {
+    + render(lines: string[], newLine: string): string[]
+}
+
+class EventSystem {
+    - gameStateManager: GameStateManager
+    + checkTriggers(): void
+}
+
+class GameLoop {
+    - gameStateManager: GameStateManager
+    - inputHandler: InputHandler
+    - commandParser: CommandParser
+    - actionDispatcher: ActionDispatcher
+    - outputRenderer: OutputRenderer
+    - eventSystem: EventSystem
+    + start(input: string): string[]
+}
+
+GameLoop --> GameStateManager
+GameLoop --> InputHandler
+GameLoop --> CommandParser
+GameLoop --> ActionDispatcher
+GameLoop --> OutputRenderer
+GameLoop --> EventSystem
+
+ActionDispatcher --> GameStateManager
+EventSystem --> GameStateManager
+
+@enduml
