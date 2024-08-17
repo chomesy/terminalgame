@@ -1,12 +1,20 @@
 "use client";
 
-import React, { useState } from 'react';
-import { GameLoop } from '@/app/game/gameLoop';
+import React, { useState, useEffect, useRef } from 'react';
+import { useGameState } from '@/app/context/GameStateContext';
 
 const TerminalEmulator: React.FC = () => {
-    const [lines, setLines] = useState<string[]>([]);
+    const gameLoop = useGameState();
     const [input, setInput] = useState<string>('');
-    const gameLoop = new GameLoop();
+    const [lines, setLines] = useState<string[]>([]);
+    const endOfConsoleRef = useRef<HTMLDivElement | null>(null);
+
+    // Scroll to the bottom whenever lines are updated
+    useEffect(() => {
+        if (endOfConsoleRef.current) {
+            endOfConsoleRef.current.scrollIntoView({ behavior: 'smooth' });
+        }
+    }, [lines]);
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setInput(e.target.value);
@@ -29,6 +37,8 @@ const TerminalEmulator: React.FC = () => {
                 {lines.map((line, index) => (
                     <div key={index}>{line}</div>
                 ))}
+                {/* The ref is attached to this empty div at the end of the console */}
+                <div ref={endOfConsoleRef}></div>
             </div>
             <form onSubmit={handleInputSubmit}>
                 <input
