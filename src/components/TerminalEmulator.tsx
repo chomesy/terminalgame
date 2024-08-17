@@ -33,7 +33,7 @@ const TerminalEmulator: React.FC = () => {
 
     return (
         <div style={{ padding: '10px', backgroundColor: '#000', color: '#0f0', fontFamily: 'monospace' }}>
-            <div style={{ height: '400px', overflowY: 'auto', marginBottom: '10px' }}>
+            <div style={{ height: '400px', width: '600px', overflowY: 'auto', marginBottom: '10px' }}>
                 {lines.map((line, index) => (
                     <div key={index}>{line}</div>
                 ))}

@@ -1,5 +1,5 @@
 // game/eventSystem.ts
-import { GameStateManager } from './state/gameState';
+import { GameStateManager } from './state/gameStateManager';
 
 export class EventSystem {
     private gameStateManager: GameStateManager;

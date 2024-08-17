@@ -1,0 +1,48 @@
+{
+  "/": {
+    "home": {
+      "user": [
+        {
+          "filename": "document.txt",
+          "mediaType": "text",
+          "content": "This is the content of the document.",
+          "metadata": {
+            "author": "John Doe",
+            "created": "2024-08-17"
+          }
+        },
+        {
+          "filename": "photo.jpg",
+          "mediaType": "image",
+          "content": "data:image/jpeg;base64,...",
+          "metadata": {
+            "author": "Jane Doe",
+            "created": "2024-08-17"
+          }
+        }
+      ],
+      "admin": [
+        {
+          "filename": "config.sys",
+          "mediaType": "text",
+          "content": "System configuration details...",
+          "metadata": {
+            "author": "Admin",
+            "created": "2024-08-17"
+          }
+        }
+      ]
+    },
+    "bin": [
+      {
+        "filename": "bash",
+        "mediaType": "executable",
+        "content": "/usr/bin/bash",
+        "metadata": {
+          "version": "5.0",
+          "permissions": "755"
+        }
+      }
+    ]
+  }
+}

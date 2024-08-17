@@ -6,8 +6,9 @@ export class CommandImplementations {
       this.gameStateManager = gameStateManager;
   }
 
-  ls(): string {
-      const files = this.gameStateManager.getState().fileSystem.listFiles();
+  ls(args: string[]): string {
+      const directory = args[0] || '.';
+      const files = this.gameStateManager.getState().fileSystem.listFiles(directory);
       return files.join('\n');
   }
 
@@ -23,9 +24,9 @@ export class CommandImplementations {
 
   cat(args: string[]): string {
       const filename = args[0];
-      const files = this.gameStateManager.getState().fileSystem.listFiles();
-      if (files.includes(filename)) {
-          return `Contents of ${filename}: <file content here>`;
+      const file = this.gameStateManager.getState().fileSystem.getFile(filename);
+      if (file) {
+          return `Contents of ${file.filename}: ${file.content}`;
       } else {
           return `File not found: ${filename}`;
       }
