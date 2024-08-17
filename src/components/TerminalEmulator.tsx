@@ -33,19 +33,24 @@ const TerminalEmulator: React.FC = () => {
 
     return (
         <div style={{ padding: '10px', backgroundColor: '#000', color: '#0f0', fontFamily: 'monospace' }}>
-            <div style={{ height: '400px', width: '600px', overflowY: 'auto', marginBottom: '10px' }}>
+            <div style={{ height: '400px', width: '600px', overflowY: 'auto', marginBottom: '10px', }}>
                 {lines.map((line, index) => (
-                    <div key={index}>{line}</div>
+                    <pre key={index} style={{fontFamily: 'monospace'}}>{line}</pre>
                 ))}
                 {/* The ref is attached to this empty div at the end of the console */}
                 <div ref={endOfConsoleRef}></div>
             </div>
-            <form onSubmit={handleInputSubmit}>
+            <form onSubmit={handleInputSubmit} style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', backgroundColor: '#000', borderRadius: '5px' }}>
+                <div className="flex">
+                    <div key='Carat' style={{ marginRight: '5px' }}>{'$UNAUTH >'}</div>
+                </div>
                 <input
                     type="text"
                     value={input}
+                    placeholder="- Type your command here -"
                     onChange={handleInputChange}
-                    style={{ width: '100%', padding: '5px', backgroundColor: '#111', color: '#0f0', border: 'none' }}
+                    className="outline-none focus:shadow-md"
+                    style={{ flexGrow: 1, border: 'none', backgroundColor: 'inherit', color: 'lightgray', fontFamily: 'monospace', borderRadius: '5px' }}
                 />
             </form>
         </div>

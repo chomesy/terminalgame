@@ -45,8 +45,8 @@ export class GameLoop {
 
         // Add command and response to the terminal output
         let lines: string[] = [];
-        lines = this.outputRenderer.render(lines, `> ${input}`);
-        lines = this.outputRenderer.render(lines, response);
+        lines = this.outputRenderer.render(lines, `   $UNAUTH > ${input}`);
+        lines = this.outputRenderer.render(lines, `@ch.cl.pub > ${response}`);
 
         return lines;
     }
