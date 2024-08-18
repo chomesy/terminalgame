@@ -4,7 +4,7 @@ export class UserInformation {
   loggedIn: boolean;
 
   constructor() {
-      this.username = 'guest';
+      this.username = `UNKNOWN`;
       this.permissionLevel = 'guest';
       this.loggedIn = false;
   }

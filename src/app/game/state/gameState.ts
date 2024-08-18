@@ -4,7 +4,10 @@ import { SystemInformation } from "./substates/systemInformation";
 import { NetworkInformation } from "./substates/networkInformation";
 import { SessionInformation } from "./substates/sessionInformation";
 import { HackingTools } from "./substates/hackingTools";
+import { SystemLog } from "./substates/systemLog";
+
 import { GameStateMeta } from "./gameStateMeta";
+
 
 /**
  * This class represents the entire game state.
@@ -20,6 +23,7 @@ export class GameState {
   networkInformation: NetworkInformation;
   sessionInformation: SessionInformation;
   hackingTools: HackingTools;
+  systemLog: SystemLog;
   gameStateMeta: GameStateMeta;
 
   constructor() { //TODO: create a global config that can instantiate all subclasses
@@ -29,6 +33,7 @@ export class GameState {
       this.networkInformation = new NetworkInformation();
       this.sessionInformation = new SessionInformation();
       this.hackingTools = new HackingTools();
+      this.systemLog = new SystemLog();
       this.gameStateMeta = new GameStateMeta();
   }
 

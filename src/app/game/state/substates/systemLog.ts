@@ -1,6 +1,6 @@
 
 
-class SystemLog {
+export class SystemLog {
   log: string[] = [];
   constructor() {
     this.log = [];
