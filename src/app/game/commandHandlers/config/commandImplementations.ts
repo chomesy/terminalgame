@@ -1,14 +1,29 @@
 import { GameStateManager } from "../../state/gameStateManager";
+import { CommandRegistry } from '../commandRegistry'; // Circular reference go whirrrrrrr
+
 export class CommandImplementations {
   private gameStateManager: GameStateManager;
+  private commandRegistry: CommandRegistry;
 
-  constructor(gameStateManager: GameStateManager) {
+  constructor(gameStateManager: GameStateManager, commandRegistry: CommandRegistry) {
       this.gameStateManager = gameStateManager;
+      this.commandRegistry = commandRegistry;
   }
+
+  boot(args: string[]): string {
+      this.gameStateManager.getState().gameStateMeta.gameChapter = 0; // TODO: convert this to updateState instead of setting variables directly
+      this.gameStateManager.getState().gameStateMeta.chapterProgress = 1; // TODO: convert this to updateState instead of setting variables directly
+      return 'Boot initialized';
+  }
+
+  help(args: string[]): string {
+      return this.commandRegistry.getHelp(args[0]); // This is the only reference to the command registry at this point in commandImplementation
+    }
+
 
   ls(args: string[]): string {
       const directory = args[0] || '.';
-      const files = this.gameStateManager.getState().fileSystem.listFiles(directory);
+      const files = this.gameStateManager.getState().fileSystem.listFiles();
       return files.join('\n');
   }
 

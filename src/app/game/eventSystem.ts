@@ -11,5 +11,11 @@ export class EventSystem {
     checkTriggers(): void {
         const state = this.gameStateManager.getState();
         // Implement logic for events based on the game state
+
+        // Initialization Trigger: Chapter 0, Chapter Progress 0
+        if (state.gameStateMeta.gameChapter === 0 && state.gameStateMeta.chapterProgress === 0) {
+            
+            // ...
+        }
     }
 }

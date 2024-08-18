@@ -32,15 +32,15 @@ const TerminalEmulator: React.FC = () => {
     };
 
     return (
-        <div style={{ padding: '10px', backgroundColor: '#000', color: '#0f0', fontFamily: 'monospace' }}>
-            <div style={{ height: '400px', width: '600px', overflowY: 'auto', marginBottom: '10px', }}>
+        <div style={{ height: '400px', width: '100%', backgroundColor: '#000', color: '#0f0', fontFamily: 'monospace' }}>
+            <div style={{ height: '380px', overflowY: 'auto', scrollbarColor: '#0f0' }}>
                 {lines.map((line, index) => (
-                    <pre key={index} style={{fontFamily: 'monospace'}}>{line}</pre>
+                    <pre key={index} style={{fontFamily: 'monospace'}}>{line}</pre> // Pre tags are used to preserve line breaks
                 ))}
                 {/* The ref is attached to this empty div at the end of the console */}
                 <div ref={endOfConsoleRef}></div>
             </div>
-            <form onSubmit={handleInputSubmit} style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', backgroundColor: '#000', borderRadius: '5px' }}>
+            <form onSubmit={handleInputSubmit} style={{ height: '20px', display: 'flex', flexDirection: 'row', alignItems: 'center', backgroundColor: '#000', borderRadius: '5px' }}>
                 <div className="flex">
                     <div key='Carat' style={{ marginRight: '5px' }}>{'$UNAUTH >'}</div>
                 </div>

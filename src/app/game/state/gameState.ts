@@ -1,21 +1,28 @@
-import { UserInformation } from "./userInformation";
+import { UserInformation } from "./substates/userInformation";
 import { FileSystem } from "./filehierarchy/fileSystem";
-import { SystemInformation } from "./systemInformation";
-import { NetworkInformation } from "./networkInformation";
-import { SessionInformation } from "./sessionInformation";
-import { HackingTools } from "./hackingTools";
+import { SystemInformation } from "./substates/systemInformation";
+import { NetworkInformation } from "./substates/networkInformation";
+import { SessionInformation } from "./substates/sessionInformation";
+import { HackingTools } from "./substates/hackingTools";
 import { GameStateMeta } from "./gameStateMeta";
 
+/**
+ * This class represents the entire game state.
+ * It contains all the game objects and their properties.
+ * @description This class represents the entire game state. It is intended to be serialized and deserialized, with no internal methods.
+ * For objects that require editing or modification of GameState, use the GameStateManager class.
+ * @class GameState
+ */
 export class GameState {
   userInformation: UserInformation;
-  fileSystem: FileSystem;
+  fileSystem: FileSystem; // File system is not current serializable. TODO: Serialize and deserialize
   systemInformation: SystemInformation;
   networkInformation: NetworkInformation;
   sessionInformation: SessionInformation;
   hackingTools: HackingTools;
   gameStateMeta: GameStateMeta;
 
-  constructor() {
+  constructor() { //TODO: create a global config that can instantiate all subclasses
       this.userInformation = new UserInformation();
       this.fileSystem = new FileSystem();
       this.systemInformation = new SystemInformation();

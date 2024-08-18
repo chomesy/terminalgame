@@ -15,23 +15,29 @@ export class GameLoop {
     private actionDispatcher: ActionDispatcher;
     private outputRenderer: OutputRenderer;
     private eventSystem: EventSystem;
-    private commandRegistry: CommandRegistry;
     private storyContent: StoryContent;
+    private commandRegistry: CommandRegistry;
 
     constructor() {
-        this.gameStateManager = new GameStateManager();
+        this.gameStateManager = new GameStateManager(); 
         this.inputHandler = new InputHandler();
         this.commandParser = new CommandParser();
         this.storyContent = new StoryContent();
-        this.commandRegistry = new CommandRegistry(this.gameStateManager, this.storyContent);
+        this.commandRegistry = new CommandRegistry(this.gameStateManager); // Command Registry needs the GameStateManager so it can update the state
         this.actionDispatcher = new ActionDispatcher(this.commandRegistry);
         this.outputRenderer = new OutputRenderer();
-        this.eventSystem = new EventSystem(this.gameStateManager);
+        this.eventSystem = new EventSystem(this.gameStateManager); // Event System needs the GameStateManager so it can update the state
     }
 
     start(input: string): string[] {
+        // Prepare a response
+        let lines: string[] = [];
+
         // Parse the command
         const command = this.commandParser.parse(input);
+
+        // Capture folder location during execution
+        const currentFolder = this.gameStateManager.getState().fileSystem.getCurrentDirectory();
 
         // Execute the command and get a response
         const response = this.actionDispatcher.executeCommand(command);
@@ -44,9 +50,8 @@ export class GameLoop {
         this.eventSystem.checkTriggers(); // Handle any triggers based on the new state
 
         // Add command and response to the terminal output
-        let lines: string[] = [];
-        lines = this.outputRenderer.render(lines, `   $UNAUTH > ${input}`);
-        lines = this.outputRenderer.render(lines, `@ch.cl.pub > ${response}`);
+        lines = this.outputRenderer.render(lines, `$UNAUTH (${currentFolder}) > ${input}`);
+        lines = this.outputRenderer.render(lines, `${response}`);
 
         return lines;
     }

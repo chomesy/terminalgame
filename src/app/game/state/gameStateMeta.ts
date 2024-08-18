@@ -1,11 +1,13 @@
 export class GameStateMeta {
-  gameProgress: number;
+  gameChapter: number;
+  chapterProgress: number;
   currentObjective: string;
   discoveredHints: string[];
 
   constructor() {
-      this.gameProgress = 0;
-      this.currentObjective = 'Gain access to the enemy system';
+      this.gameChapter = 0;
+      this.chapterProgress = 0;
+      this.currentObjective = 'Null';
       this.discoveredHints = [];
   }
 

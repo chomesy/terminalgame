@@ -1,23 +1,58 @@
 export const commandsConfig = [
   {
+    name: "boot",
+    description: "Boot terminal",
+    methodName: "boot",
+    progressCheck: {
+      chapter: 0,
+      progress: 0,
+    },
+  },
+  {
+    name: "help",
+    description: "List all available commands",
+    methodName: "listCommands",
+    progressCheck: {
+      chapter: 0,
+      progress: 0,
+    },
+  },
+  {
     name: "ls",
     description: "List files in the current directory",
-    method: "listFiles",
+    methodName: "listFiles",
+    progressCheck: {
+      chapter: 0,
+      progress: 1,
+    },
+    
   },
   {
     name: "cd",
     description: "Change the current directory. Usage: cd <directory>",
-    method: "changeDirectory",
+    methodName: "changeDirectory",
+    progressCheck: {
+      chapter: 0,
+      progress: 1,
+    },
   },
   {
     name: "cat",
     description: "Display the contents of a file. Usage: cat <filename>",
-    method: "readFile",
+    methodName: "readFile",
+    progressCheck: {
+      chapter: 0,
+      progress: 1,
+    },
   },
   {
     name: "sysinfo",
     description: "Display system information such as CPU, memory, and uptime",
-    method: "systemInfo",
+    methodName: "systemInfo",
+    progressCheck: {
+      chapter: 0,
+      progress: 0,
+    },
   },
   // Add more commands as needed
 ];
