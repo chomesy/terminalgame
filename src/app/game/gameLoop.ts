@@ -30,6 +30,7 @@ export class GameLoop {
         this.gameStateManager.getState().systemLog.addLog(`~~~~~~~~~~~~~~~~~~~`);
         this.gameStateManager.getState().systemLog.addLog(`Systems initialized. Please proceed.`);
         this.gameStateManager.getState().systemLog.addLog(`~~~~~~~~~~~~~~~~~~~`);
+        this.idleLoop; // Run the idle loop to check triggers and start the game
     }
 
     start(input: string): string[] {
@@ -50,13 +51,23 @@ export class GameLoop {
         this.updateLog(`${response}`);
 
         // Check if the command resulted in a state change
-        this.eventSystem.checkAndExecuteTriggers(); // Handle any triggers based on the new state
-
+        if (this.eventSystem.checkAndExecuteTriggers()) { // Handle any triggers based on the new state
+            this.idleLoop();
+        }
         return ["Null Return"];
     }
 
-    idleLoop(): void {
-        this.eventSystem.checkAndExecuteTriggers();
+    /**
+     * Executes a game loop that only checks triggers, and if found, loops again
+     * 
+     * This function will continue to call itself until the event system has no more triggers to execute.
+     * 
+     * @return {void} No return value.
+     */
+    idleLoop(): void { 
+        if (this.eventSystem.checkAndExecuteTriggers()) {
+            this.idleLoop(); // This will continue nesting until there are no triggers
+        }
     }
 
     updateLog(logString: string): void {

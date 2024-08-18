@@ -24,9 +24,9 @@ export class EventSystem {
             return true
         }
 
-        if (state.gameStateMeta.gameChapter === 0 && state.gameStateMeta.chapterProgress === 1) {
+        if (state.gameStateMeta.gameChapter === 0 && state.gameStateMeta.chapterProgress === 2) {
             this.commandRegistry.addChapterProgressCommands();
-            this.gameStateManager.getState().gameStateMeta.chapterProgress = 2;
+            this.gameStateManager.getState().gameStateMeta.chapterProgress = 3;
             return true
         }
 

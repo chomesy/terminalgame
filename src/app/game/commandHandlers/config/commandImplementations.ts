@@ -12,8 +12,8 @@ export class CommandImplementations {
 
   boot(args: string[]): string {
       this.gameStateManager.getState().gameStateMeta.gameChapter = 0; // TODO: convert this to updateState instead of setting variables directly
-      this.gameStateManager.getState().gameStateMeta.chapterProgress = 1; // TODO: convert this to updateState instead of setting variables directly
-      return 'Boot initialized';
+      this.gameStateManager.getState().gameStateMeta.chapterProgress = 2; // TODO: convert this to updateState instead of setting variables directly
+      return 'Boot commencing...';
   }
 
   help(args: string[]): string {
