@@ -21,25 +21,15 @@ export class GameLoop {
 
     constructor() {
         this.gameStateManager = new GameStateManager();
-        this.gameStateManager.getState().systemLogStream.postInfoLog(`Game state manager initialized`);
         this.commandParser = new CommandParser();
-        this.gameStateManager.getState().systemLogStream.postInfoLog(`Command parser initialized`);
         this.storyContent = new StoryContent();
         this.commandRegistry = new CommandRegistry(this.gameStateManager); // Command Registry needs the GameStateManager so it can update the state
-        // this.gameStateManager.getState().systemLog.addLog(`Command registry initialized`);
         this.actionDispatcher = new ActionDispatcher(this.commandRegistry);
-        // this.gameStateManager.getState().systemLog.addLog(`Action dispatcher initialized`);
         this.eventSystem = new EventSystem(this.gameStateManager, this.commandRegistry); // Event System needs the GameStateManager so it can update the state, and commandRegistry to add new commands
-        // this.gameStateManager.getState().systemLog.addLog(`~~~~~~~~~~~~~~~~~~~`);
-        // this.gameStateManager.getState().systemLog.addLog(`Systems initialized. Please proceed.`);
-        // this.gameStateManager.getState().systemLog.addLog(`~~~~~~~~~~~~~~~~~~~`);
         this.idleLoop; // Run the idle loop to check triggers and start the game
     }
 
     start(input: string): string[] {
-
-        // Post info log on loop start
-        this.gameStateManager.getState().systemLogStream.postInfoLog(`Command Detected`);
 
         // Parse the command
         const command = this.commandParser.parse(input);
@@ -58,14 +48,14 @@ export class GameLoop {
         // this.updateLog(`${response}`);
         this.gameStateManager.getState().systemLogStream.postInfoLog(`${response}`);
 
-        
-
         // Check if the command resulted in a state change
         this.eventSystem.checkAndExecuteTriggers().then((result) => { // Handle any triggers based on the new state
             if (result) {
                 this.idleLoop();
             }
         });
+
+
 
         return ["Null Return"];
     }
@@ -87,6 +77,10 @@ export class GameLoop {
 
     getLogStream(): SystemLogStream {
         return this.gameStateManager.getState().systemLogStream;
+    }
+
+    getUsername(): string {
+        return this.gameStateManager.getState().userInformation.username
     }
 }
 

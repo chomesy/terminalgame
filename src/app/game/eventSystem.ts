@@ -27,13 +27,22 @@ export class EventSystem {
     User ${state.userInformation.username} located.
     ~~~~~~~~~~~~~~~~
                 `);
+            
+            await new Promise(resolve => setTimeout(resolve, 3000)); // wait for the text to type
             this.gameStateManager.getState().gameStateMeta.chapterProgress = 1;
             return true
         }
 
-        if (state.gameStateMeta.gameChapter === 0 && state.gameStateMeta.chapterProgress === 2) {
+        if (state.gameStateMeta.gameChapter === 0 && state.gameStateMeta.chapterProgress === 1) {
             this.commandRegistry.addChapterProgressCommands();
-            this.gameStateManager.getState().gameStateMeta.chapterProgress = 3;
+            this.gameStateManager.getState().gameStateMeta.chapterProgress = 2;
+            return true
+        }
+
+        if (state.gameStateMeta.gameChapter === 0 && state.gameStateMeta.chapterProgress === 3) {
+            await new Promise(resolve => setTimeout(resolve, 12000)); // wait for the boot text to type
+            this.commandRegistry.addChapterProgressCommands();
+            this.gameStateManager.getState().gameStateMeta.chapterProgress = 4;
             return true
         }
 

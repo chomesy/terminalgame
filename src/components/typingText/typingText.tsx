@@ -11,11 +11,14 @@ const TypingText: React.FC<TypingTextProps> = ({ line }) => {
   const [isTyping, setIsTyping] = useState(true);
 
   useEffect(() => {
-    const typingInterval = 15; // adjust the typing speed
+    const typingInterval = 30; // adjust the typing speed
     let i = 0;
     const intervalId = setInterval(() => {
-      setTypingText(line.slice(0, i + 1));
-      i++;
+      setTypingText(line.slice(0, i));
+
+      // Parsing and processing the text here
+
+      i+=Math.floor(Math.random() * 9) + 1;
       if (i >= line.length) {
         clearInterval(intervalId);
         setIsTyping(false);

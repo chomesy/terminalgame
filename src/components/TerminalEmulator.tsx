@@ -32,8 +32,6 @@ const TerminalEmulator: React.FC = () => {
 
         // Process the input through the game loop
         const newLines = gameLoop.start(input);
-        //setLines([...lines, ...newLines]); // This tacks on new lines into the React state for the console output
-
         setInput(''); // Clear the input box
     };
 
@@ -43,12 +41,10 @@ const TerminalEmulator: React.FC = () => {
                 {logData.map((log, index) => (
                     <TypingText key={index} line={log.logText} />
                 ))}
-                {/* The ref is attached to this empty div at the end of the console */}
-                <div ref={endOfConsoleRef}></div>
             </div>
             <form onSubmit={handleInputSubmit} style={{ height: '20px', display: 'flex', flexDirection: 'row', alignItems: 'center', backgroundColor: '#000', borderRadius: '5px' }}>
                 <div className="flex">
-                    <div key='Carat' style={{ marginRight: '5px' }}>{'$UNAUTH >'}</div>
+                    <div key='Carat' style={{ marginRight: '5px' }}>{gameLoop.getUsername() + ' >'}</div>
                 </div>
                 <input
                     type="text"

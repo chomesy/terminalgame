@@ -11,14 +11,62 @@ export class CommandImplementations {
   }
 
   boot(args: string[]): string {
+
+      const jibberish = [];
+      for (let line = 0; line < 5; line++) {
+        for (let i = 0; i < 25; i++) {
+            jibberish.push(String.fromCharCode(Math.floor(Math.random() * 255)));
+        }
+        jibberish.push('\n');
+      }
       this.gameStateManager.getState().gameStateMeta.gameChapter = 0; // TODO: convert this to updateState instead of setting variables directly
-      this.gameStateManager.getState().gameStateMeta.chapterProgress = 2; // TODO: convert this to updateState instead of setting variables directly
-      return 'Boot commencing...';
+      this.gameStateManager.getState().gameStateMeta.chapterProgress = 3; // TODO: convert this to updateState instead of setting variables directly
+      return `
+[00:00:00.000] > [POWER ON]
+[00:00:00.013] > [FIRMWARE: REV 93.21b]
+[00:00:00.029] > [CHECKSUM: 0x9A7C3F2B] :: [PASS]
+[00:00:00.056] > [ARRAY: 48xA] :: [ONLINE]
+[BPU STATUS: *ACTIVE*]
+[CORE 01-08] :: [OK] | [SYNC: TRUE]
+[NEN-Q: 5/5] :: [VALID]
+~~~~~~~~~~~~~~~~~~~~~~
+[00:00:00.204] > [STORAGE: OXXOOOOOXO:G&s] :: [INTEGRITY: underwhelming :(]
+[00:00:00.239] > [ALP_C: ☑] [BET_C: ☑] [GAM_C: ☑]
+[00:00:00.303] < [NN RL INTERFACE: [RELU, RELU, RELU, RELU...]: ☑]
+[00:00:00.336] > [ENV MODULES: ATM ☑ | BIO ☑ | NFB ☑]
+[00:00:00.373] < [SECURITY: ADAPTIVE: 1]
+   <UNAUTH> > AuNE _______|_|
+   <UNAUTH> > AuNE ___|_____|
+   <UNAUTH> > AuNE ______|__|
+   <UNAUTH> > AuNE _____
+              ,halting ...
+[00:00:00.408] > [TIME SYNC: NET ⬆ | user_sync~~0~~]
+[00:00:00.436] > [acc%f5: 98.7%]
+[00:00:00.471] > [PERIPH: IN ⬆ | OUT ⬆]
+[00:00:00.497] > [LIBRARY: SYNC ⬆]
+[00:00:00.544] > [DIAGNOSTICS: COMPLETE]
+[00:00:00.554] > [OS: v4.93b]
+[00:00:00.563] > [BOOT: END]
+   <UNAUTH> clear
+   ${jibberish}
+
+   <UNAUTH> clear --all
+
+
+
+
+      `
+      ;
   }
 
   help(args: string[]): string {
       return this.commandRegistry.getHelp(args[0]); // This is the only reference to the command registry at this point in commandImplementation
     }
+
+    // Mainly for debug
+  getstate(): string {
+      return (this.gameStateManager.getState().gameStateMeta.gameChapter + ' ' + this.gameStateManager.getState().gameStateMeta.chapterProgress).toString();
+  }
 
 
   ls(args: string[]): string {

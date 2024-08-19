@@ -15,19 +15,73 @@ export class FileSystem {
         const root = new Folder('/');
 
         const home = new Folder('home');
+        home.addFile(new File('userprofile~~0~~', 'text', `
+# [USER: def0293449@term.default]
+# [Core]
+pwr = Bal
+cool = Hi
+
+# [Display]
+br = 75
+sat = 85
+eng = 60
+exp = 1.03
+
+# [Backdrop]
+bg = Nebula
+anim = Med
+
+# [UI]
+~~DEFINE DEFAULT: 'terminal'~~
+~~DEFINE OVERRIDE: 'terminal'~~
+~~DEF             ... XY_speed = Fast
+fx = Fade
+!erg
+
+
+# [Thermal]
+max_temp = 90C
+alert = 85C
+
+# [Sound]
+cool_noise = Lo
+notif = Org
+harmony = On
+            `));
+        
         const user = new Folder('user');
+        user.addFile(new File('document.txt', 'text', 'Cat food from the gro'));
+        user.addFile(new File('document_.txt', 'text', 'Cat food from the grocery store'));
+        user.addFile(new File('document_|.txt', 'text', `Cat Cat Cat Cat Cat food Cat food Cat food Cat food Cat
+            food from the gr
+            food f∂¬m the ˙∂
+            fπßœµfrom the gr
+            food from the grocery s
+            ~~[CORRUPTED]~~
+            food from the gro~~[CORRUPTED]~~~~[CORRUPTED}~~
+            ood~~DONT~~from~~MOVE~~the~~gr00Xuu|~~
+            
+            ø
+
+            ø
+            `));
+        user.addFile(new File('daqueris-picture', 'image', 'data:image/bact::regenr::xClass'));
+        user.addFile(new File('face-picture', 'image', 'data:image/bact::regenr::xClass'));
+        user.addFile(new File('face-picture.', 'image', '~~[CORRUPTED]~~'));
+        user.addFile(new File('miami.jpg', 'image', 'data:image/bact::regenr::xClass'));
+        
         const admin = new Folder('admin');
-        user.addFile(new File('document.txt', 'text', 'This is the content of the document.'));
-        user.addFile(new File('photo.jpg', 'image', 'data:image/jpeg;base64,...'));
-        admin.addFile(new File('config.sys', 'text', 'System configuration details...'));
+        admin.addFile(new File('config-neo', 'text', '~~[ENCRYPTED]~~'));
+        admin.addFile(new File('config-bac', 'text', '~~[ENCRYPTED^donttry^]~~'));
         home.addFolder(user);
         home.addFolder(admin);
 
-        const bin = new Folder('bin');
-        bin.addFile(new File('bash', 'executable', '/usr/bin/bash'));
-        bin.addFile(new File('ls', 'executable', '/bin/ls'));
-
         root.addFolder(home);
+
+        const bin = new Folder('bin');
+        bin.addFile(new File('terminal', 'executable', 'Terminal 3XjS3_|_'));
+        bin.addFile(new File('ls', 'executable', 'ls 00Xuu|'));
+ 
         root.addFolder(bin);
 
         return root;
