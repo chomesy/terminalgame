@@ -18,7 +18,8 @@ export class GameLoop {
 
     constructor() {
         this.gameStateManager = new GameStateManager();
-        this.gameStateManager.getState().systemLog.addLog(`Logging active`); 
+        this.gameStateManager.getState().systemLog.addLog(`Logging active`);
+        this.gameStateManager.getState().systemLogStream.updateLog(["Hello, welcome to your new adventure!"]);
         this.commandParser = new CommandParser();
         this.gameStateManager.getState().systemLog.addLog(`Command parser initialized`);
         this.storyContent = new StoryContent();

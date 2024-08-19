@@ -5,7 +5,7 @@ import { NetworkInformation } from "./substates/networkInformation";
 import { SessionInformation } from "./substates/sessionInformation";
 import { HackingTools } from "./substates/hackingTools";
 import { SystemLog } from "./substates/systemLog";
-
+import { SystemLogStream } from "./substates/systemLogStream";
 import { GameStateMeta } from "./gameStateMeta";
 
 
@@ -23,7 +23,8 @@ export class GameState {
   networkInformation: NetworkInformation;
   sessionInformation: SessionInformation;
   hackingTools: HackingTools;
-  systemLog: SystemLog;
+  systemLog: SystemLog; // creating two log objects during debugging
+  systemLogStream: SystemLogStream; // creating two log objects during debugging
   gameStateMeta: GameStateMeta;
 
   constructor() { //TODO: create a global config that can instantiate all subclasses
@@ -33,7 +34,8 @@ export class GameState {
       this.networkInformation = new NetworkInformation();
       this.sessionInformation = new SessionInformation();
       this.hackingTools = new HackingTools();
-      this.systemLog = new SystemLog();
+      this.systemLog = new SystemLog(); // creating two log objects during debugging
+      this.systemLogStream = new SystemLogStream(); // creating two log objects during debugging
       this.gameStateMeta = new GameStateMeta();
   }
 
