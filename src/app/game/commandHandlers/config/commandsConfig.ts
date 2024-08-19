@@ -23,7 +23,7 @@ export const commandsConfig = [
     methodName: "listFiles",
     progressCheck: {
       chapter: 0,
-      progress: 1,
+      progress: 2,
     },
     
   },
@@ -33,7 +33,7 @@ export const commandsConfig = [
     methodName: "changeDirectory",
     progressCheck: {
       chapter: 0,
-      progress: 1,
+      progress: 2,
     },
   },
   {
@@ -42,7 +42,7 @@ export const commandsConfig = [
     methodName: "readFile",
     progressCheck: {
       chapter: 0,
-      progress: 1,
+      progress: 2,
     },
   },
   {

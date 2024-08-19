@@ -1,11 +1,13 @@
 export class UserInformation {
   username: string;
+  password: string;
   permissionLevel: string;
   loggedIn: boolean;
 
   constructor() {
       this.username = `UNKNOWN`;
-      this.permissionLevel = 'guest';
+      this.password = `default`;
+      this.permissionLevel = 'NONE';
       this.loggedIn = false;
   }
 

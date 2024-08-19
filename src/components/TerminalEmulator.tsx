@@ -1,19 +1,13 @@
 "use client";
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useLayoutEffect, useRef } from 'react';
 import { useGameState } from '@/app/context/GameStateContext';
+import TypingText from './typingText/typingText';
 
 const TerminalEmulator: React.FC = () => {
     const gameLoop = useGameState();
     const [input, setInput] = useState<string>('');
     const endOfConsoleRef = useRef<HTMLDivElement | null>(null);
-
-    // Scroll to the bottom whenever lines are updated
-    useEffect(() => {
-        if (endOfConsoleRef.current) {
-            endOfConsoleRef.current.scrollIntoView({ behavior: 'smooth' });
-        }
-    }, [gameLoop.getLog().length]);
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setInput(e.target.value);
@@ -34,7 +28,19 @@ const TerminalEmulator: React.FC = () => {
         <div style={{ height: '400px', width: '100%', backgroundColor: '#000', color: '#0f0', fontFamily: 'monospace' }}>
             <div style={{ height: '380px', overflowY: 'auto', scrollbarColor: '#0f0' }}>
                 {gameLoop.getLog().map((line, index) => (
-                    <pre key={index} style={{fontFamily: 'monospace'}}>{line}</pre> // Pre tags are used to preserve line breaks
+                    <div key={index}>
+                        <TypingText 
+                            key={index} 
+                            line={line}
+                            onRendered={() => {
+                                if (endOfConsoleRef.current) {
+                                    console.log('scroll');
+                                    endOfConsoleRef.current.scrollIntoView({ behavior: 'smooth' });
+                                }
+                            }} 
+                        />
+                        
+                    </div>
                 ))}
                 {/* The ref is attached to this empty div at the end of the console */}
                 <div ref={endOfConsoleRef}></div>
