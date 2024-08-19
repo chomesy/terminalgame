@@ -12,8 +12,8 @@ export class SystemInformation {
   osVersion: string;
   uptime: number; // in milliseconds
   processList: string[];
-  timeStamp: Date;
-  systemTime: Date;
+  private timeStamp: Date;
+  private systemTime: Date;
   private timeOffset= {'years':3, 'months': 1, 'days':8, 'hours':6, 'minutes':1, 'seconds':14} // random numbers
   private timeOffsetInMilliseconds = 1000*(this.timeOffset.seconds + 60*(this.timeOffset.minutes + 60*(this.timeOffset.hours + 24*(this.timeOffset.days + 30*this.timeOffset.months + 365*this.timeOffset.years))))
 
@@ -29,6 +29,11 @@ export class SystemInformation {
       this.processList = [];
       this.timeStamp = new Date(); // This sets the time to the time of construction
       this.systemTime = new Date(this.timeStamp.getTime() + this.timeOffsetInMilliseconds);
+  }
+
+  getSystemTime(): Date {
+    this.systemTime = new Date(this.timeStamp.getTime() + this.timeOffsetInMilliseconds);
+    return this.systemTime;
   }
 
   refreshUptime(): void {
@@ -47,7 +52,4 @@ export class SystemInformation {
       this.processList = this.processList.filter(p => p !== processName);
   }
 
-  updateUptime(uptime: number): void {
-      this.uptime = uptime;
-  }
 }

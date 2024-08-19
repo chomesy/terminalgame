@@ -42,7 +42,7 @@ export class CommandRegistry {
 
     private registerCommand(command: Command): void {
         this.commands.set(command.name, command);
-        this.gameStateManager.getState().systemLog.addLog(`Command '${command.name}' registered`);
+        this.gameStateManager.getState().systemLogStream.postInfoLog(`Command '${command.name}' registered`);
     }
 
     addChapterProgressCommands(): void {

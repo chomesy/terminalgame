@@ -5,7 +5,7 @@ export const commandsConfig = [
     methodName: "boot",
     progressCheck: {
       chapter: 0,
-      progress: 0,
+      progress: 1,
     },
   },
   {
@@ -14,7 +14,7 @@ export const commandsConfig = [
     methodName: "listCommands",
     progressCheck: {
       chapter: 0,
-      progress: 0,
+      progress: 1,
     },
   },
   {
@@ -51,7 +51,7 @@ export const commandsConfig = [
     methodName: "systemInfo",
     progressCheck: {
       chapter: 0,
-      progress: 0,
+      progress: 1,
     },
   },
   // Add more commands as needed

@@ -56,6 +56,7 @@ export class CommandImplementations {
           Memory Usage: ${sysInfo.systemHealth.memory}%
           Storage Usage: ${sysInfo.systemHealth.storage}%
           Network Usage: ${sysInfo.systemHealth.network}%
+          System Time: ${sysInfo.getSystemTime().toLocaleString()}
       `;
   }
 

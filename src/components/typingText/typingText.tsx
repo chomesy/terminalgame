@@ -4,15 +4,14 @@ import { useState, useEffect } from 'react';
 
 interface TypingTextProps {
   line: string;
-  onRendered: () => void;
 }
 
-const TypingText: React.FC<TypingTextProps> = ({ line, onRendered }) => {
+const TypingText: React.FC<TypingTextProps> = ({ line }) => {
   const [typingText, setTypingText] = useState('');
   const [isTyping, setIsTyping] = useState(true);
 
   useEffect(() => {
-    const typingInterval = 25; // adjust the typing speed
+    const typingInterval = 15; // adjust the typing speed
     let i = 0;
     const intervalId = setInterval(() => {
       setTypingText(line.slice(0, i + 1));
@@ -22,9 +21,8 @@ const TypingText: React.FC<TypingTextProps> = ({ line, onRendered }) => {
         setIsTyping(false);
       }
     }, typingInterval);
-    onRendered();
     return () => clearInterval(intervalId);
-  }, [line, onRendered]);
+  }, [line]);
 
   return (
     <pre style={{ fontFamily: 'monospace' }}>

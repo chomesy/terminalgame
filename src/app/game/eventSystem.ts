@@ -11,15 +11,22 @@ export class EventSystem {
         this.commandRegistry = commandRegistry;
     }
 
-    checkAndExecuteTriggers(): boolean {
+    async checkAndExecuteTriggers(): Promise<boolean> {
         const state = this.gameStateManager.getState();
 
         // Implement logic for events based on the game state
         if (state.gameStateMeta.gameChapter === 0 && state.gameStateMeta.chapterProgress === 0) {
-            this.gameStateManager.getState().systemLog.addLog('~~~~~~~~~~~~~~~~');
-            this.gameStateManager.getState().systemLog.addLog('User Detected...');
-            this.gameStateManager.getState().systemLog.addLog(`User ${state.userInformation.username} located.`);
-            this.gameStateManager.getState().systemLog.addLog('~~~~~~~~~~~~~~~~');
+            await new Promise(resolve => setTimeout(resolve, 1000));
+            this.gameStateManager.getState().systemLogStream.postInfoLog(
+                `
+    ~~~~~~~~~~~~~~~~
+    User Detected   ... ... ... ... ... ... ... ...
+    ... ... ... ... ... ... ... ... ... ... ... ...
+    ... ... ... ... ... ... ... ... ... ... ... ...
+    ... ... ... ... ... ... .. .       
+    User ${state.userInformation.username} located.
+    ~~~~~~~~~~~~~~~~
+                `);
             this.gameStateManager.getState().gameStateMeta.chapterProgress = 1;
             return true
         }

@@ -6,15 +6,14 @@ export interface logObject {
 }
 
 export class SystemLog {
-  log: string[] = [];
-  detailedLog: logObject[] = [];
+  log: logObject[];
 
   constructor() {
     this.log = [];
     
   }
 
-  addLog(log: string): void {
-    this.log.push(log);
+  addLog(newLog: logObject): void {
+    this.log.push(newLog);
   }
 }

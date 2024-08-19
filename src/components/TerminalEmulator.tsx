@@ -1,13 +1,26 @@
 "use client";
 
-import React, { useState, useLayoutEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+
 import { useGameState } from '@/app/context/GameStateContext';
 import TypingText from './typingText/typingText';
+import { logObject } from '@/app/game/state/substates/systemLog';
 
 const TerminalEmulator: React.FC = () => {
     const gameLoop = useGameState();
     const [input, setInput] = useState<string>('');
     const endOfConsoleRef = useRef<HTMLDivElement | null>(null);
+    const [logData, setLogData] = useState<logObject[]>([]);
+
+    useEffect(() => {
+        const subscription = gameLoop.getLogStream().getObservable().subscribe((logData) => {
+            setLogData((prevLogData) => [...prevLogData, logData]);
+            
+        });
+        return () => {
+            subscription.unsubscribe();
+        };
+    }, []);
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setInput(e.target.value);
@@ -25,22 +38,10 @@ const TerminalEmulator: React.FC = () => {
     };
 
     return (
-        <div style={{ height: '400px', width: '100%', backgroundColor: '#000', color: '#0f0', fontFamily: 'monospace' }}>
-            <div style={{ height: '380px', overflowY: 'auto', scrollbarColor: '#0f0' }}>
-                {gameLoop.getLog().map((line, index) => (
-                    <div key={index}>
-                        <TypingText 
-                            key={index} 
-                            line={line}
-                            onRendered={() => {
-                                if (endOfConsoleRef.current) {
-                                    console.log('scroll');
-                                    endOfConsoleRef.current.scrollIntoView({ behavior: 'smooth' });
-                                }
-                            }} 
-                        />
-                        
-                    </div>
+        <div style={{ height: '400px', width: '100%', backgroundColor: '#000', color: '#0f0', fontFamily: 'monospace', overflowY: 'scroll' }}>
+            <div className="console-div" style={{ height: '380px', marginTop: 'auto', display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', overflowY: 'auto' }}>
+                {logData.map((log, index) => (
+                    <TypingText key={index} line={log.logText} />
                 ))}
                 {/* The ref is attached to this empty div at the end of the console */}
                 <div ref={endOfConsoleRef}></div>
