@@ -1,8 +1,11 @@
 export const commandsConfig = [
   {
-    name: "boot",
-    description: "Boot terminal",
-    methodName: "boot",
+    name: "initialize",
+    description: `
+    Initializes the terminal for user interaction. 
+    Usage: initialize
+    `,
+    methodName: "initialize",
     progressCheck: {
       chapter: 0,
       progress: 1,
@@ -10,7 +13,10 @@ export const commandsConfig = [
   },
   {
     name: "help",
-    description: "List all available commands",
+    description: `
+    Provides a list of available commands and usage 
+    Usage: help or help [command]
+    `,
     methodName: "listCommands",
     progressCheck: {
       chapter: 0,
@@ -18,8 +24,11 @@ export const commandsConfig = [
     },
   },
   {
-    name: "ls",
-    description: "List files in the current directory",
+    name: "list",
+    description: `
+    List files in the current directory
+    Usage: list
+    `,
     methodName: "listFiles",
     progressCheck: {
       chapter: 0,
@@ -29,7 +38,12 @@ export const commandsConfig = [
   },
   {
     name: "cd",
-    description: "Change the current directory. Usage: cd <directory>",
+    description: `
+    Change the current directory. 
+    Usage: cd <directory>
+    Note: use " cd .. " to move back one directory
+          or  " cd / " to move to the root directory
+    `,
     methodName: "changeDirectory",
     progressCheck: {
       chapter: 0,
@@ -37,8 +51,11 @@ export const commandsConfig = [
     },
   },
   {
-    name: "cat",
-    description: "Display the contents of a file. Usage: cat <filename>",
+    name: "read",
+    description: `
+    Display the contents of a file. 
+    Usage: read <filename>
+    `,
     methodName: "readFile",
     progressCheck: {
       chapter: 0,
@@ -47,7 +64,10 @@ export const commandsConfig = [
   },
   {
     name: "sysinfo",
-    description: "Display system information such as CPU, memory, and uptime",
+    description: `
+    Display system information such as CPU, memory, and uptime
+    Usage: sysinfo
+    `,
     methodName: "systemInfo",
     progressCheck: {
       chapter: 0,
@@ -56,7 +76,9 @@ export const commandsConfig = [
   },
   {
     name: "slovak",
-    description: "You weren't supposed to get this far.",
+    description: `
+    You weren't supposed to get this far.
+    `,
     methodName: "getState",
     progressCheck: {
       chapter: 0,

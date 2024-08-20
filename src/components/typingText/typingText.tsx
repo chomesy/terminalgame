@@ -2,11 +2,16 @@
 
 import { useState, useEffect } from 'react';
 
+import { logObject } from '@/app/game/state/substates/systemLog';
+
 interface TypingTextProps {
-  line: string;
+  logObject: logObject
 }
 
-const TypingText: React.FC<TypingTextProps> = ({ line }) => {
+const TypingText: React.FC<TypingTextProps> = ({logObject}) => {
+  const logType = logObject.logType;
+  const line = logObject.logText;
+  const logTimeStamp = logObject.logTimeStamp;
   const [typingText, setTypingText] = useState('');
   const [isTyping, setIsTyping] = useState(true);
 
@@ -28,7 +33,13 @@ const TypingText: React.FC<TypingTextProps> = ({ line }) => {
   }, [line]);
 
   return (
-    <pre style={{ fontFamily: 'monospace' }}>
+    <pre style={{ 
+      color: 
+        (logType === 'error' ? 'red' :
+          (logType === 'response' ? '#0f0' :
+            (logType === 'command' ? 'white' :
+            'grey')))
+      , fontFamily: 'monospace' }}>
       {isTyping ? typingText : line}
     </pre>
   );

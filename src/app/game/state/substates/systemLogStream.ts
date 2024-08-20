@@ -14,39 +14,54 @@ private logSubject = new Subject<logObject>();
     this.logSubject.next(systemLog);
   }
 
-  postInfoLog(message: string) {
+  postInfoLog(message: string, logTimeStamp = new Date()) {
     const newLog: logObject = {
       logType: 'info',
       logText: message,
-      logTimeStamp: new Date(),
+      logTimeStamp: logTimeStamp,
+      logSubmitter: 'system'
     };
     this.logSubject.next(newLog);
   }
 
-  postUserCommandLog(message: string){
+  postUserCommandLog(message: string, currentUser: string, logTimeStamp= new Date()){
     const newLog: logObject = {
       logType: 'command',
       logText: message,
-      logTimeStamp: new Date(),
+      logTimeStamp: logTimeStamp,
+      logSubmitter: currentUser,
     }
     this.logSubject.next(newLog);
   }
 
-  postErrorLog(message: string) {
+  postErrorLog(message: string, logTimeStamp= new Date()) {
     const newLog: logObject = {
       logType: 'error',
       logText: message,
-      logTimeStamp: new Date(),
+      logTimeStamp: logTimeStamp,
+      logSubmitter: 'system',
     };
     this.logSubject.next(newLog);
   }
 
-  postTerminalResponseLog(message: string) {
+  postTerminalResponseLog(message: string, logTimeStamp= new Date()) {
     const newLog: logObject = {
       logType: 'response',
       logText: message,
-      logTimeStamp: new Date(),
+      logTimeStamp: logTimeStamp,
+      logSubmitter: 'system',
     };
     this.logSubject.next(newLog);
   }
+
+  postAICommunicationLog(message: string, logTimeStamp= new Date()) {
+    const newLog: logObject = {
+      logType: 'aicomms',
+      logText: message,
+      logTimeStamp: logTimeStamp,
+      logSubmitter: 'ai',
+    };
+    this.logSubject.next(newLog);
+  }
+  
 }

@@ -10,7 +10,7 @@ export class CommandImplementations {
       this.commandRegistry = commandRegistry;
   }
 
-  boot(args: string[]): string {
+  initialize(args: string[]): string {
 
       const jibberish = [];
       for (let line = 0; line < 5; line++) {
@@ -22,31 +22,37 @@ export class CommandImplementations {
       this.gameStateManager.getState().gameStateMeta.gameChapter = 0; // TODO: convert this to updateState instead of setting variables directly
       this.gameStateManager.getState().gameStateMeta.chapterProgress = 3; // TODO: convert this to updateState instead of setting variables directly
       return `
-[00:00:00.000] > [POWER ON]
+[00:00:00.000] > [INITIALIZING]
 [00:00:00.013] > [FIRMWARE: REV 93.21b]
 [00:00:00.029] > [CHECKSUM: 0x9A7C3F2B] :: [PASS]
-[00:00:00.056] > [ARRAY: 48xA] :: [ONLINE]
-[BPU STATUS: *ACTIVE*]
-[CORE 01-08] :: [OK] | [SYNC: TRUE]
-[NEN-Q: 5/5] :: [VALID]
+[00:00:00.056] > <SYS.root> use "[ARRAY: 48xA]"
+--[BPU STATUS: *ACTIVE*]
+--[CORE 01-08] :: [OK] | [SYNC: TRUE]
+--[NEN-Q: 5/5] :: [VALID]
+--[FIND_BIND :: AuNE, $user] 
 ~~~~~~~~~~~~~~~~~~~~~~
-[00:00:00.204] > [STORAGE: OXXOOOOOXO:G&s] :: [INTEGRITY: underwhelming :(]
-[00:00:00.239] > [ALP_C: ☑] [BET_C: ☑] [GAM_C: ☑]
-[00:00:00.303] < [NN RL INTERFACE: [RELU, RELU, RELU, RELU...]: ☑]
-[00:00:00.336] > [ENV MODULES: ATM ☑ | BIO ☑ | NFB ☑]
-[00:00:00.373] < [SECURITY: ADAPTIVE: 1]
+[00:00:02.204] > [STORAGE: OXXOOOOOXO:G&s] :: [INTEGRITY: underwhelming :(]
+[00:00:02.239] > [ALP_C: ☑] [BET_C: ☑] [GAM_C: ☑]
+[00:00:02.303] < [NN RL INTERFACE: [RELU, RELU, RELU, RELU...]: ☑]
+[00:00:02.336] > [ENV MODULES: ATM ☑ | BIO ☑ | NFB ☑]
+[00:00:02.373] < [SECURITY: ADAPTIVE: 1]
    <UNAUTH> > AuNE _______|_|
    <UNAUTH> > AuNE ___|_____|
    <UNAUTH> > AuNE ______|__|
    <UNAUTH> > AuNE _____
               ,halting ...
-[00:00:00.408] > [TIME SYNC: NET ⬆ | user_sync~~0~~]
-[00:00:00.436] > [acc%f5: 98.7%]
-[00:00:00.471] > [PERIPH: IN ⬆ | OUT ⬆]
-[00:00:00.497] > [LIBRARY: SYNC ⬆]
-[00:00:00.544] > [DIAGNOSTICS: COMPLETE]
-[00:00:00.554] > [OS: v4.93b]
-[00:00:00.563] > [BOOT: END]
+<SYS> reauth ...
+              ,halting ...
+<SYS> reauth ...
+              ,halting ...
+[00:00:04.408] > [TIME SYNC: NET ⬆ | user_sync~~0~~]
+[00:00:04.436] > [acc%f5: 98.7%]
+[00:00:04.471] > [PERIPH: <SYS> reaIuNt h⬆. |.   .OUT ⬆]
+~~~~~~~~~~~~~~~~~~~~~,h~a~lt~in~g~~~~.~~~~.~~~~~~.~
+[00:00:05.297] > [LIBRARY: SYNC] ... .. ... ... ... [COMPLETE]
+[00:00:05.544] > [DIAGNOSTICS: DETECT !Fallback]
+[00:00:05.554] > [OS: v4.93b !Fallback]
+[00:00:05.563] > [BOOT: END]
    <UNAUTH> clear
    ${jibberish}
 
@@ -69,7 +75,7 @@ export class CommandImplementations {
   }
 
 
-  ls(args: string[]): string {
+  list(args: string[]): string {
       const directory = args[0] || '.';
       const files = this.gameStateManager.getState().fileSystem.listFiles();
       return files.join('\n');
@@ -78,31 +84,42 @@ export class CommandImplementations {
   cd(args: string[]): string {
       const newDirectory = args[0];
       try {
-          this.gameStateManager.getState().fileSystem.changeDirectory(newDirectory);
-          return `Changed directory to ${newDirectory}`;
+          const response = this.gameStateManager.getState().fileSystem.changeDirectory(newDirectory);
+          const fileList = this.gameStateManager.getState().fileSystem.listFiles().join('\n');
+          return `${response}
+    ---- Files: ----
+${fileList}
+`;
       } catch (error: any) {
           return error.message;
       }
   }
 
-  cat(args: string[]): string {
+  read(args: string[]): string {
       const filename = args[0];
       const file = this.gameStateManager.getState().fileSystem.getFile(filename);
       if (file) {
-          return `Contents of ${file.filename}: ${file.content}`;
+          return `
+          Contents of ${file.filename}: 
+          [File Start]
+          ${file.content}
+          [File End]
+          `;
       } else {
           return `File not found: ${filename}`;
       }
   }
 
   sysinfo(): string {
+      // Refresh the system info before gathering
+      this.gameStateManager.getState().systemInformation.refreshSystemInfo();
       const sysInfo = this.gameStateManager.getState().systemInformation;
       return `
           OS Version: ${sysInfo.osVersion}
           Uptime: ${sysInfo.uptime}
           CPU Usage: ${sysInfo.systemHealth.cpu}%
-          Memory Usage: ${sysInfo.systemHealth.memory}%
-          Storage Usage: ${sysInfo.systemHealth.storage}%
+          Memory Usage: ${sysInfo.systemHealth.memory} TInt
+          Storage Usage: ${sysInfo.systemHealth.storage} TInt
           Network Usage: ${sysInfo.systemHealth.network}%
           System Time: ${sysInfo.getSystemTime().toLocaleString()}
       `;

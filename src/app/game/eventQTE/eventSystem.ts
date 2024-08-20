@@ -1,6 +1,6 @@
 // game/eventSystem.ts
-import { GameStateManager } from './state/gameStateManager';
-import { CommandRegistry } from './commandHandlers/commandRegistry';
+import { GameStateManager } from '../state/gameStateManager';
+import { CommandRegistry } from '../commandHandlers/commandRegistry';
 
 export class EventSystem {
     private gameStateManager: GameStateManager;

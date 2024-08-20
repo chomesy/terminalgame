@@ -13,13 +13,9 @@ export class CommandRegistry {
         this.commandImplementations = commandImplementations;
         this.commands = new Map<string, Command>();
 
-        this.registerDefaultCommands();
-    }
-
-    private registerDefaultCommands(): void {
-        // Register default commands
         this.addCommandsOnStateChange();
     }
+
 
     private addCommandsOnStateChange(): void {
         // filter the commands list to the current state
@@ -57,15 +53,18 @@ export class CommandRegistry {
         if (commandName) {
             const command = this.getCommand(commandName);
             if (command) {
-                return `${command.name}: ${command.description}`;
+                return `
+    ${command.name}: ${command.description}
+`;
             } else {
                 return `Command not found: ${commandName}`;
             }
         } else {
-            return Array.from(this.commands.values())
+            return (
+                `---- Currently Registered Commands ---- \n` + Array.from(this.commands.values())
                 .map(command => `${command.name}: ${command.description}`)
-                .join('\n');
-        }
+                .join('\n')
+        );}
     }
 
 }

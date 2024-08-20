@@ -39,7 +39,7 @@ const TerminalEmulator: React.FC = () => {
         <div style={{ height: '400px', width: '100%', backgroundColor: '#000', color: '#0f0', fontFamily: 'monospace', overflowY: 'scroll' }}>
             <div className="console-div" style={{ height: '380px', marginTop: 'auto', display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', overflowY: 'auto' }}>
                 {logData.map((log, index) => (
-                    <TypingText key={index} line={log.logText} />
+                    <TypingText key={index} logObject={log} />
                 ))}
             </div>
             <form onSubmit={handleInputSubmit} style={{ height: '20px', display: 'flex', flexDirection: 'row', alignItems: 'center', backgroundColor: '#000', borderRadius: '5px' }}>

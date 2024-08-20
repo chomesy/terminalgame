@@ -15,7 +15,7 @@ export class FileSystem {
         const root = new Folder('/');
 
         const home = new Folder('home');
-        home.addFile(new File('userprofile~~0~~', 'text', `
+        home.addFile(new File('user-profile', 'text', `
 # [USER: def0293449@term.default]
 # [Core]
 pwr = Bal
@@ -50,9 +50,9 @@ harmony = On
             `));
         
         const user = new Folder('user');
-        user.addFile(new File('document.txt', 'text', 'Cat food from the gro'));
-        user.addFile(new File('document_.txt', 'text', 'Cat food from the grocery store'));
-        user.addFile(new File('document_|.txt', 'text', `Cat Cat Cat Cat Cat food Cat food Cat food Cat food Cat
+        user.addFile(new File('document0.txt', 'text', 'Cat food from the gro'));
+        user.addFile(new File('document1.txt', 'text', 'Cat food from the grocery store'));
+        user.addFile(new File('document2.txt', 'text', `Cat Cat Cat Cat Cat food Cat food Cat food Cat food Cat
             food from the gr
             food f∂¬m the ˙∂
             fπßœµfrom the gr
@@ -88,21 +88,42 @@ harmony = On
     }
 
     // Change the current directory
-    public changeDirectory(directoryName: string): void {
-        if (directoryName === '/') {
-            this.currentDirectory = this.root;
+    public changeDirectory(directoryName: string): string {
+        var response = `directoryName= ${directoryName} `;
+        if (directoryName.startsWith('/')) {
+                this.currentDirectory = this.root;
+                response += `Navigated to /`;
+                const parsedDirectory = directoryName.split('/');
+                for (let directory of parsedDirectory) {
+                    if (directory !== ''){
+                        const targetFolder = this.currentDirectory.findFolder(directory);
+                        if (targetFolder) {
+                            this.currentDirectory = targetFolder;
+                            response+=`${directory}/`;
+                        } else {
+                            response+=`\n .. and then directory ${directory} was not found`;
+                        }
+                    }
+                }
+                return response;
+
+
         } else if (directoryName === '..') {
             if (this.currentDirectory.parentFolder) {
                 this.currentDirectory = this.currentDirectory.parentFolder;
+                return `Navigated to ${this.currentDirectory.folderName}`;
             } else {
-                console.error("Already at the root directory. Cannot go up.");
+                return("Already at the root directory. Cannot go up.");
             }
         } else {
+            //TODO: Turn this into a "for (let directory of parsedDirectory)" loop over all directories
+            const parsedDirectory = directoryName.split('/');
             const targetFolder = this.currentDirectory.findFolder(directoryName);
             if (targetFolder) {
                 this.currentDirectory = targetFolder;
+                return `Navigated to ${this.currentDirectory.folderName}`;
             } else {
-                throw new Error(`Directory ${directoryName} not found`);
+                return `Directory ${directoryName} not found`;
             }
         }
     }

@@ -2,7 +2,7 @@
 import { GameStateManager } from './state/gameStateManager';
 import { CommandParser } from './commandParser';
 import { ActionDispatcher } from './commandHandlers/actionDispatcher';
-import { EventSystem } from './eventSystem';
+import { EventSystem } from './eventQTE/eventSystem';
 import { CommandRegistry } from './commandHandlers/commandRegistry';
 import { StoryContent } from './storyContent';
 
@@ -37,16 +37,14 @@ export class GameLoop {
         // Capture folder location during execution
         const currentFolder = this.gameStateManager.getState().fileSystem.getCurrentDirectory();
 
-        // The info message is ultimately a concatenation of the command & response
-        //this.updateLog(`$${this.gameStateManager.getState().userInformation.username} (${currentFolder}) > ${input}`);
-        this.gameStateManager.getState().systemLogStream.postUserCommandLog(`$${this.gameStateManager.getState().userInformation.username} (${currentFolder}) > ${input}`);
+        // Add a command to the System Log Stream
+        this.gameStateManager.getState().systemLogStream.postUserCommandLog(input, this.gameStateManager.getState().userInformation.username);
 
         // Execute the command and get a response
         const response = this.actionDispatcher.executeCommand(command);
 
         // Add response to the terminal output
-        // this.updateLog(`${response}`);
-        this.gameStateManager.getState().systemLogStream.postInfoLog(`${response}`);
+        this.gameStateManager.getState().systemLogStream.postTerminalResponseLog(response);
 
         // Check if the command resulted in a state change
         this.eventSystem.checkAndExecuteTriggers().then((result) => { // Handle any triggers based on the new state

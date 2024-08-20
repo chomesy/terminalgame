@@ -3,12 +3,14 @@ export class GameStateMeta {
   chapterProgress: number;
   currentObjective: string;
   discoveredHints: string[];
+  isInQuicktime: boolean;
 
   constructor() {
       this.gameChapter = 0;
       this.chapterProgress = 0;
       this.currentObjective = 'Null';
       this.discoveredHints = [];
+      this.isInQuicktime = false;
   }
 
   updateObjective(newObjective: string): void {

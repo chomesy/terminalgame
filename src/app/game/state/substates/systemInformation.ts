@@ -31,24 +31,25 @@ export class SystemInformation {
       this.systemTime = new Date(this.timeStamp.getTime() + this.timeOffsetInMilliseconds);
   }
 
+  refreshSystemInfo(): void {
+    const now = new Date();
+    const diff = now.getTime() - this.timeStamp.getTime();
+    this.systemTime = new Date(this.timeStamp.getTime() + this.timeOffsetInMilliseconds + diff);
+    this.uptime = Math.floor(diff / 1000);
+  }
+
   getSystemTime(): Date {
-    this.systemTime = new Date(this.timeStamp.getTime() + this.timeOffsetInMilliseconds);
+    this.refreshSystemInfo();
     return this.systemTime;
   }
 
-  refreshUptime(): void {
-      const now = new Date();
-      const diff = now.getTime() - this.timeStamp.getTime();
-      this.systemTime = new Date(this.timeStamp.getTime() + this.timeOffsetInMilliseconds + diff);
-
-      this.uptime = Math.floor(diff / 1000);
-  }
-
   addProcess(processName: string): void {
+      this.refreshSystemInfo();
       this.processList.push(processName);
   }
 
   removeProcess(processName: string): void {
+      this.refreshSystemInfo();
       this.processList = this.processList.filter(p => p !== processName);
   }
 

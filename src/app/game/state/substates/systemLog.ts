@@ -1,8 +1,9 @@
-
+export type logTypeString = 'info' | 'command' | 'response' | 'error' | 'aicomms';
 export interface logObject {
-  logType: string,
+  logType: logTypeString,
   logText: string,
   logTimeStamp: Date,
+  logSubmitter: string,
 }
 
 export class SystemLog {

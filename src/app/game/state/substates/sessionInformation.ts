@@ -2,6 +2,7 @@ export class SessionInformation {
   commandHistory: string[];
   outputBuffer: string[];
   sessionLogs: string[];
+  
 
   constructor() {
       this.commandHistory = [];
