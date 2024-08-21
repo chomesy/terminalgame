@@ -49,6 +49,10 @@ export class CommandRegistry {
         return this.commands.get(commandName);
     }
 
+    getCommandList(): string[] {
+        return Array.from(this.commands.keys());
+    }
+
     getHelp(commandName?: string): string {
         if (commandName) {
             const command = this.getCommand(commandName);

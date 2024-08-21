@@ -16,7 +16,8 @@ export class ActionDispatcher {
         } else if (baseCommand === 'help') {
             return this.commandRegistry.getHelp(args[0]);
         } else {
-            return `Unknown command: ${command}`;
+            return `Unknown command: ${command}
+Type 'help' for a list of available commands.`;
         }
     }
 }

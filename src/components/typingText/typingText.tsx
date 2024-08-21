@@ -10,8 +10,10 @@ interface TypingTextProps {
 
 const TypingText: React.FC<TypingTextProps> = ({logObject}) => {
   const logType = logObject.logType;
-  const line = logObject.logText;
+  let line = logObject.logText;
+  if (logType === 'command') line = `${logObject.logSubmitter} > ` + line
   const logTimeStamp = logObject.logTimeStamp;
+  const logSubmitter = logObject.logSubmitter;
   const [typingText, setTypingText] = useState('');
   const [isTyping, setIsTyping] = useState(true);
 

@@ -1,16 +1,25 @@
 "use client";
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useMemo, useLayoutEffect } from 'react';
+import Autocomplete from '@mui/material/Autocomplete';
+import TextField from '@mui/material/TextField';
+import InputBase from '@mui/material/InputBase';
+import Input from '@mui/material/Input';
+
 
 import { useGameState } from '@/app/context/GameStateContext';
 import TypingText from './typingText/typingText';
 import { logObject } from '@/app/game/state/substates/systemLog';
+import AutoCompleteBox from './AutoCompleteBox';
 
 const TerminalEmulator: React.FC = () => {
     const gameLoop = useGameState();
     const [input, setInput] = useState<string>('');
-    const endOfConsoleRef = useRef<HTMLDivElement | null>(null);
     const [logData, setLogData] = useState<logObject[]>([]);
+    
+    const typingOptions = useMemo(() => {
+        return gameLoop.getCurrentCommandsList().concat(gameLoop.getCurrentFilesList());
+    }, [gameLoop.getCurrentCommandsList(), gameLoop.getCurrentFilesList()]);
 
     useEffect(() => {
         const subscription = gameLoop.getLogStream().getObservable().subscribe((logData) => {
@@ -36,24 +45,15 @@ const TerminalEmulator: React.FC = () => {
     };
 
     return (
-        <div style={{ height: '400px', width: '100%', backgroundColor: '#000', color: '#0f0', fontFamily: 'monospace', overflowY: 'scroll' }}>
-            <div className="console-div" style={{ height: '380px', marginTop: 'auto', display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', overflowY: 'auto' }}>
+        <div style={{ height: '100%', width: '100%', maxWidth: '100vw', backgroundColor: '#000', color: '#0f0', fontFamily: 'monospace', overflowY: 'clip' }}>
+            <div className="console-div" style={{ height: '375px', marginLeft:'5px', display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', overflowY: 'auto' }}>
                 {logData.map((log, index) => (
                     <TypingText key={index} logObject={log} />
                 ))}
             </div>
-            <form onSubmit={handleInputSubmit} style={{ height: '20px', display: 'flex', flexDirection: 'row', alignItems: 'center', backgroundColor: '#000', borderRadius: '5px' }}>
-                <div className="flex">
-                    <div key='Carat' style={{ marginRight: '5px' }}>{gameLoop.getUsername() + ' >'}</div>
-                </div>
-                <input
-                    type="text"
-                    value={input}
-                    placeholder="- Type your command here -"
-                    onChange={handleInputChange}
-                    className="outline-none focus:shadow-md"
-                    style={{ flexGrow: 1, border: 'none', backgroundColor: 'inherit', color: 'lightgray', fontFamily: 'monospace', borderRadius: '5px' }}
-                />
+            <form onSubmit={handleInputSubmit} style={{ height: '25px', display: 'flex', flexDirection: 'row', alignItems: 'center', backgroundColor: '#000', borderRadius: '5px' }}>
+                <div key='Carat' style={{ marginLeft: '5px', marginRight: '5px', fontSize: '14px',fontFamily: 'monospace', color: 'grey', backgroundColor: 'transparent' }}>{gameLoop.getUsername() + ' @ ' + gameLoop.getCurrentFolderName() + ' >'}</div>
+                <AutoCompleteBox inputString={input} setInputString={setInput} options= {typingOptions}/>
             </form>
         </div>
     );

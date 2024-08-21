@@ -2,15 +2,18 @@
 
 export interface SystemHealth {
   cpu: number;
-  memory: number;
+  memoryVolume: number;
+  memoryPressure: number;
+  memoryTemperature: number;
   storage: number;
   network: number;
+  battery: number;
 }
 
 export class SystemInformation {
   systemHealth: SystemHealth;
   osVersion: string;
-  uptime: number; // in milliseconds
+  uptime: number; // in seconds
   processList: string[];
   private timeStamp: Date;
   private systemTime: Date;
@@ -19,10 +22,13 @@ export class SystemInformation {
 
   constructor() {
       this.systemHealth = {
-          cpu: 30,
-          memory: 50,
-          storage: 70,
-          network: 90
+          cpu: 19,
+          memoryVolume: 0.03, // Cubic Ft
+          memoryPressure: 88.3, // PSI
+          memoryTemperature: 90, // Celsius
+          storage: 71.24,
+          network: 90,
+          battery: 6,
       };
       this.osVersion = 'BPoS © 1987-2024 BPoS.Alpha.003';
       this.uptime = 0;

@@ -89,7 +89,7 @@ harmony = On
 
     // Change the current directory
     public changeDirectory(directoryName: string): string {
-        var response = `directoryName= ${directoryName} `;
+        let response = '';
         if (directoryName.startsWith('/')) {
                 this.currentDirectory = this.root;
                 response += `Navigated to /`;
@@ -118,7 +118,7 @@ harmony = On
         } else {
             //TODO: Turn this into a "for (let directory of parsedDirectory)" loop over all directories
             const parsedDirectory = directoryName.split('/');
-            const targetFolder = this.currentDirectory.findFolder(directoryName);
+            const targetFolder = this.currentDirectory.findFolder(parsedDirectory[0]); // This just grabs the first
             if (targetFolder) {
                 this.currentDirectory = targetFolder;
                 return `Navigated to ${this.currentDirectory.folderName}`;
@@ -129,7 +129,7 @@ harmony = On
     }
 
     // List files and subfolders in the current directory
-    public listFiles(): string[] {
+    public listContents(): string[] {
         return this.currentDirectory.listContents();
     }
 

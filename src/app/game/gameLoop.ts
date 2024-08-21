@@ -73,12 +73,26 @@ export class GameLoop {
         });
     }
 
+    // The following are public methods to get items needed by the terminal console
+
     getLogStream(): SystemLogStream {
         return this.gameStateManager.getState().systemLogStream;
     }
 
     getUsername(): string {
         return this.gameStateManager.getState().userInformation.username
+    }
+
+    getCurrentCommandsList(): string[] {
+        return this.commandRegistry.getCommandList();
+    }
+
+    getCurrentFilesList(): string[] {
+        return this.gameStateManager.getState().fileSystem.listContents();
+    }
+
+    getCurrentFolderName(): string {
+        return this.gameStateManager.getState().fileSystem.getCurrentDirectory();
     }
 }
 

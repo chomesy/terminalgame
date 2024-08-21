@@ -76,18 +76,19 @@ export class CommandImplementations {
 
 
   list(args: string[]): string {
-      const directory = args[0] || '.';
-      const files = this.gameStateManager.getState().fileSystem.listFiles();
-      return files.join('\n');
-  }
+      const directory = args[0] || '.'; // parameters don't matter at this point
+      const objects = this.gameStateManager.getState().fileSystem.listContents();
+      return `---- Contents: ----
+${objects.join('\n')}`;
+}
 
   cd(args: string[]): string {
       const newDirectory = args[0];
       try {
           const response = this.gameStateManager.getState().fileSystem.changeDirectory(newDirectory);
-          const fileList = this.gameStateManager.getState().fileSystem.listFiles().join('\n');
+          const fileList = this.gameStateManager.getState().fileSystem.listContents().join('\n');
           return `${response}
-    ---- Files: ----
+    ---- Contents: ----
 ${fileList}
 `;
       } catch (error: any) {
@@ -118,12 +119,30 @@ ${fileList}
           OS Version: ${sysInfo.osVersion}
           Uptime: ${sysInfo.uptime}
           CPU Usage: ${sysInfo.systemHealth.cpu}%
-          Memory Usage: ${sysInfo.systemHealth.memory} TInt
-          Storage Usage: ${sysInfo.systemHealth.storage} TInt
+          Alt-Neon Volume: ${sysInfo.systemHealth.memoryVolume} CuFt
+          Alt-Neon Pressure: ${sysInfo.systemHealth.memoryPressure} PSI
+          Alt-Neon Temperature: ${sysInfo.systemHealth.memoryTemperature} °C 
+          Storage Usage: ${sysInfo.systemHealth.storage} TInT
           Network Usage: ${sysInfo.systemHealth.network}%
           System Time: ${sysInfo.getSystemTime().toLocaleString()}
       `;
   }
+
+  login(args: string[]): string {
+    if (args.length < 2) {
+        //Quicktime event
+        return `quicktime event goes here`
+    }
+    else {
+        const username = args[0];
+        const password = args[1];
+    }
+    return ``;
+
+}
+
+
+
 
   // Other methods as needed...
 
