@@ -14,7 +14,8 @@ const Home: React.FC = () => {
                 <div key="toolbar" 
                     style={{ 
                         height: '20px', 
-                        width: '600px', 
+                        width: '600px',
+                        color: 'grey', 
                         position: 'absolute',
                         padding: '2px',
                         backgroundColor: 'transparent', 

@@ -36,7 +36,7 @@ export class Folder {
 
     // List all files and subfolders
     listContents(): string[] {
-        const fileNames = this.files.map(file => `🐙 ${file.filename}`);
+        const fileNames = this.files.map(file => `🗎 ${file.filename}`);
         let folderNames = this.subFolders.map(folder => `📁 ${folder.folderName}/`);
         folderNames.push(`📁 ..`);
         return [...fileNames, ...folderNames];
