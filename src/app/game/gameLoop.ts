@@ -38,16 +38,17 @@ export class GameLoop {
         const currentFolder = this.gameStateManager.getState().fileSystem.getCurrentDirectory();
 
         // Add a command to the System Log Stream
-        this.gameStateManager.getState().systemLogStream.postUserCommandLog(input, this.gameStateManager.getState().userInformation.username);
-
         if (this.gameStateManager.getState().gameStateMeta.isInQuicktime) {
+            this.gameStateManager.getState().systemLogStream.postUserCommandLog(input, this.gameStateManager.getState().userInformation.username);
             return;
-        }
-        // Execute the command and get a response
-        const response = await this.actionDispatcher.executeCommand(command);
+        } else {
+            this.gameStateManager.getState().systemLogStream.postUserCommandLog(input, this.gameStateManager.getState().userInformation.username);
+            // Execute the command and get a response
+            const response = await this.actionDispatcher.executeCommand(command);
 
-        // Add response to the terminal output
-        this.gameStateManager.getState().systemLogStream.postTerminalResponseLog(response);
+            // Add response to the terminal output
+            this.gameStateManager.getState().systemLogStream.postTerminalResponseLog(response);
+        }
 
         // Check if the command resulted in a state change
         this.eventSystem.checkAndExecuteTriggers().then((result) => { // Handle any triggers based on the new state
