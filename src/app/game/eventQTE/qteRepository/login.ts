@@ -68,8 +68,8 @@ export default class LoginQTE extends QuickTimeEvent {
 
     if (this.username !== null && this.password !== null) {
       // TODO: Add logic for login
-      this.gameStateManager.getState().userInformation.login(this.username, this.password);
-      this.gameStateManager.getState().systemLogStream.postInfoLog(`Login Successful`);
+      const response = this.gameStateManager.getState().userInformation.login(this.username, this.password);
+      this.gameStateManager.getState().systemLogStream.postInfoLog(`${response}`);
       this.gameStateManager.getState().gameStateMeta.isInQuicktime = false;
       this.gameStateManager.getState().gameStateMeta.gameChapter = 1;
       this.gameStateManager.getState().gameStateMeta.chapterProgress = 0;

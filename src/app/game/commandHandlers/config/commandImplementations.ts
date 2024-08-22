@@ -141,11 +141,12 @@ ${fileList}
         //Quicktime event
         const currentQTE = new LoginQTE(this.gameStateManager, this.commandRegistry);
         await currentQTE.runQTE();
-        return `LOGIN METHOD ENDED`
+        return ``;
     }
     else {
         const username = args[0];
         const password = args[1];
+        return this.gameStateManager.getState().userInformation.login(username, password);
     }
     return ``;
 
