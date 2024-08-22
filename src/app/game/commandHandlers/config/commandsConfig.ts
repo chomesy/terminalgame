@@ -3,8 +3,7 @@ export const commandsConfig = [
     name: "initialize",
     description: `
     Initializes the terminal for user interaction. 
-    Usage: initialize
-    `,
+    Usage: initialize`,
     methodName: "initialize",
     progressCheck: {
       chapter: 0,
@@ -15,9 +14,19 @@ export const commandsConfig = [
     name: "help",
     description: `
     Provides a list of available commands and usage 
-    Usage: help or help [command]
-    `,
+    Usage: help or help [command]`,
     methodName: "listCommands",
+    progressCheck: {
+      chapter: 0,
+      progress: 0,
+    },
+  },
+  {
+    name: "sysinfo",
+    description: `
+    Display system information such as CPU, memory, and uptime
+    Usage: sysinfo`,
+    methodName: "systemInfo",
     progressCheck: {
       chapter: 0,
       progress: 1,
@@ -27,8 +36,7 @@ export const commandsConfig = [
     name: "list",
     description: `
     List files in the current directory
-    Usage: list
-    `,
+    Usage: list`,
     methodName: "listFiles",
     progressCheck: {
       chapter: 0,
@@ -42,8 +50,7 @@ export const commandsConfig = [
     Change the current directory. 
     Usage: cd <directory>
     Note: use " cd .. " to move back one directory
-          or  " cd / " to move to the root directory
-    `,
+          or  " cd / " to move to the root directory`,
     methodName: "changeDirectory",
     progressCheck: {
       chapter: 0,
@@ -54,8 +61,7 @@ export const commandsConfig = [
     name: "read",
     description: `
     Display the contents of a file. 
-    Usage: read <filename>
-    `,
+    Usage: read <filename>`,
     methodName: "readFile",
     progressCheck: {
       chapter: 0,
@@ -63,15 +69,25 @@ export const commandsConfig = [
     },
   },
   {
-    name: "sysinfo",
+    name: "login",
     description: `
-    Display system information such as CPU, memory, and uptime
-    Usage: sysinfo
-    `,
-    methodName: "systemInfo",
+    Login to the Terminal. 
+    Usage: login`,
+    methodName: "login",
     progressCheck: {
       chapter: 0,
-      progress: 1,
+      progress: 3,
+    },
+  },
+  {
+    name: "whoami",
+    description: `
+    A philisophical question... 
+    Usage: whoami`,
+    methodName: "whoami",
+    progressCheck: {
+      chapter: 0,
+      progress: 3,
     },
   },
   {

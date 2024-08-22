@@ -1,5 +1,6 @@
 import { GameStateManager } from "../../state/gameStateManager";
 import { CommandRegistry } from '../commandRegistry'; // Circular reference go whirrrrrrr
+import LoginQTE from '../../eventQTE/qteRepository/login';
 
 export class CommandImplementations {
   private gameStateManager: GameStateManager;
@@ -19,9 +20,7 @@ export class CommandImplementations {
         }
         jibberish.push('\n');
       }
-      this.gameStateManager.getState().gameStateMeta.gameChapter = 0; // TODO: convert this to updateState instead of setting variables directly
-      this.gameStateManager.getState().gameStateMeta.chapterProgress = 3; // TODO: convert this to updateState instead of setting variables directly
-      return `
+      let returnString = `
 [00:00:00.000] > [INITIALIZING]
 [00:00:00.013] > [FIRMWARE: REV 93.21b]
 [00:00:00.029] > [CHECKSUM: 0x9A7C3F2B] :: [PASS]
@@ -31,7 +30,7 @@ export class CommandImplementations {
 --[NEN-Q: 5/5] :: [VALID]
 --[FIND_BIND :: AuNE, $user] 
 ~~~~~~~~~~~~~~~~~~~~~~
-[00:00:02.204] > [STORAGE: OXXOOOOOXO:G&s] :: [INTEGRITY: underwhelming :(]
+[00:00:02.204] > [STORAGE: ${this.gameStateManager.getState().systemInformation.systemHealth.memoryVolume} cuFt] :: [INTEGRITY: underwhelming :(]
 [00:00:02.239] > [ALP_C: ☑] [BET_C: ☑] [GAM_C: ☑]
 [00:00:02.303] < [NN RL INTERFACE: [RELU, RELU, RELU, RELU...]: ☑]
 [00:00:02.336] > [ENV MODULES: ATM ☑ | BIO ☑ | NFB ☑]
@@ -51,8 +50,8 @@ export class CommandImplementations {
 ~~~~~~~~~~~~~~~~~~~~~,h~a~lt~in~g~~~~.~~~~.~~~~~~.~
 [00:00:05.297] > [LIBRARY: SYNC] ... .. ... ... ... [COMPLETE]
 [00:00:05.544] > [DIAGNOSTICS: DETECT !Fallback]
-[00:00:05.554] > [OS: v4.93b !Fallback]
-[00:00:05.563] > [BOOT: END]
+[00:00:05.554] > [OS: ${this.gameStateManager.getState().systemInformation.osVersion}!Fallback]
+[00:00:05.563] > [INITIALIZE: END]
    <UNAUTH> clear
    ${jibberish}
 
@@ -61,7 +60,12 @@ export class CommandImplementations {
 
 
 
-      `
+`
+      this.gameStateManager.getState().gameStateMeta.gameChapter = 0; // TODO: convert this to updateState instead of setting variables directly
+      this.gameStateManager.getState().gameStateMeta.chapterProgress = 3; // TODO: convert this to updateState instead of setting variables directly
+      this.gameStateManager.getState().fileSystem.mountFilesystem();
+      this.gameStateManager.getState().fileSystem.createFile(`initializelog.txt`, returnString);
+      return returnString;
       ;
   }
 
@@ -128,10 +132,16 @@ ${fileList}
       `;
   }
 
-  login(args: string[]): string {
+  whoami(): string {
+    return this.gameStateManager.getState().userInformation.getUserInfo();
+  }
+
+  async login(args: string[]): Promise<string> {
     if (args.length < 2) {
         //Quicktime event
-        return `quicktime event goes here`
+        const currentQTE = new LoginQTE(this.gameStateManager, this.commandRegistry);
+        await currentQTE.runQTE();
+        return `LOGIN METHOD ENDED`
     }
     else {
         const username = args[0];
@@ -140,9 +150,6 @@ ${fileList}
     return ``;
 
 }
-
-
-
 
   // Other methods as needed...
 

@@ -31,16 +31,12 @@ const TerminalEmulator: React.FC = () => {
         };
     }, []);
 
-    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setInput(e.target.value);
-    };
-
     const handleInputSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         if (input.trim() === '') return;
 
         // Process the input through the game loop
-        const newLines = gameLoop.start(input);
+        gameLoop.start(input);
         setInput(''); // Clear the input box
     };
 

@@ -30,7 +30,7 @@ export class SystemInformation {
           network: 90,
           battery: 6,
       };
-      this.osVersion = 'BPoS © 1987-2024 BPoS.Alpha.003';
+      this.osVersion = 'BPoS © 1987-2027 BPoS.Alpha.003';
       this.uptime = 0;
       this.processList = [];
       this.timeStamp = new Date(); // This sets the time to the time of construction

@@ -29,7 +29,7 @@ export class GameState {
 
   constructor() { //TODO: create a global config that can instantiate all subclasses
       this.userInformation = new UserInformation();
-      this.fileSystem = new FileSystem();
+      this.fileSystem = new FileSystem(false);
       this.systemInformation = new SystemInformation();
       this.networkInformation = new NetworkInformation();
       this.sessionInformation = new SessionInformation();

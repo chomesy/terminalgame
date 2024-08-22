@@ -5,8 +5,11 @@ export class FileSystem {
     private root: Folder;
     private currentDirectory: Folder;
 
-    constructor(initialStructure?: Folder) {
-        this.root = initialStructure || this.defaultStructure();
+    constructor(defaultOptions?: boolean, initialStructure?: Folder) {
+        if (defaultOptions)
+            {this.root = initialStructure || this.defaultStructure();}
+        else 
+            {this.root = new Folder('/');};
         this.currentDirectory = this.root;
     }
 
@@ -126,6 +129,18 @@ harmony = On
                 return `Directory ${directoryName} not found`;
             }
         }
+    }
+
+    public mountFilesystem(fs?: FileSystem): string {
+        if (fs) {
+            this.root = fs.root;
+            this.currentDirectory = this.root;
+        }
+        else {
+            this.root = this.defaultStructure();
+            this.currentDirectory = this.root;
+        }
+        return `Mounted filesystem fs.root = ${this.root.folderName}`;
     }
 
     // List files and subfolders in the current directory

@@ -26,10 +26,10 @@ export class GameLoop {
         this.commandRegistry = new CommandRegistry(this.gameStateManager); // Command Registry needs the GameStateManager so it can update the state
         this.actionDispatcher = new ActionDispatcher(this.commandRegistry);
         this.eventSystem = new EventSystem(this.gameStateManager, this.commandRegistry); // Event System needs the GameStateManager so it can update the state, and commandRegistry to add new commands
-        this.idleLoop; // Run the idle loop to check triggers and start the game
+        this.idleLoop(); // Run the idle loop to check triggers and start the game
     }
 
-    start(input: string): string[] {
+    async start(input: string): Promise<void> {
 
         // Parse the command
         const command = this.commandParser.parse(input);
@@ -40,8 +40,11 @@ export class GameLoop {
         // Add a command to the System Log Stream
         this.gameStateManager.getState().systemLogStream.postUserCommandLog(input, this.gameStateManager.getState().userInformation.username);
 
+        if (this.gameStateManager.getState().gameStateMeta.isInQuicktime) {
+            return;
+        }
         // Execute the command and get a response
-        const response = this.actionDispatcher.executeCommand(command);
+        const response = await this.actionDispatcher.executeCommand(command);
 
         // Add response to the terminal output
         this.gameStateManager.getState().systemLogStream.postTerminalResponseLog(response);
@@ -52,10 +55,6 @@ export class GameLoop {
                 this.idleLoop();
             }
         });
-
-
-
-        return ["Null Return"];
     }
 
     /**
@@ -71,6 +70,10 @@ export class GameLoop {
                 this.idleLoop();
             }
         });
+    }
+
+    quickTimeLoop(input : string): void {
+        
     }
 
     // The following are public methods to get items needed by the terminal console

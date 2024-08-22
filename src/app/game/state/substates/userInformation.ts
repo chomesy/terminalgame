@@ -11,15 +11,26 @@ export class UserInformation {
       this.loggedIn = false;
   }
 
-  login(username: string, permissionLevel: string): void {
-      this.username = username;
-      this.permissionLevel = permissionLevel;
-      this.loggedIn = true;
+  login(username: string, password: string): string {
+      if (username === 'slovak' && password === 'password123') {
+          this.username = username;
+          this.password = password;
+          this.permissionLevel = 'SLOVAK';
+          this.loggedIn = true;
+          return `Login Successful. Permission level: ${this.permissionLevel}`;
+      }
+      this.loggedIn = false;
+      return `Login Failed. Username or password is incorrect. Current user: ${this.username}`;
   }
 
   logout(): void {
       this.username = 'guest';
       this.permissionLevel = 'guest';
       this.loggedIn = false;
+  }
+
+  getUserInfo(): string {
+      return `Username: ${this.username}
+Permission Level: ${this.permissionLevel}`;
   }
 }
