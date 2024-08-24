@@ -1,10 +1,7 @@
-import AutoCompleteBox from '@/components/AutoCompleteBox';
-
+import VideoPlayer from '../../components/VideoPlayer';
 
 export default function Debug() {
   return (
-    <div>
-      
-    </div>
+    <VideoPlayer />
   )
 }

@@ -8,6 +8,7 @@ import { StoryContent } from './storyContent';
 
 import { SystemLog, logObject } from './state/substates/systemLog';
 import { SystemLogStream } from './state/substates/systemLogStream';
+import { GameState } from './state/gameState';
 
 export class GameLoop {
     private gameStateManager: GameStateManager;
@@ -37,8 +38,9 @@ export class GameLoop {
         // Capture folder location during execution
         const currentFolder = this.gameStateManager.getState().fileSystem.getCurrentDirectory();
 
-        // Add a command to the System Log Stream
+        // Branching paths for whether the user is in a QTE or not
         if (this.gameStateManager.getState().gameStateMeta.isInQuicktime) {
+            // This just writes the command to the stream without executing the command
             this.gameStateManager.getState().systemLogStream.postUserCommandLog(input, this.gameStateManager.getState().userInformation.username);
             return;
         } else {
@@ -97,6 +99,10 @@ export class GameLoop {
 
     getCurrentFolderName(): string {
         return this.gameStateManager.getState().fileSystem.getCurrentDirectory();
+    }
+
+    getState(): GameState {
+        return this.gameStateManager.getState();
     }
 }
 

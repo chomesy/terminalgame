@@ -30,12 +30,16 @@ export class EventSystem {
             
             await new Promise(resolve => setTimeout(resolve, 3000)); // wait for the text to type
             this.gameStateManager.getState().gameStateMeta.chapterProgress = 1;
+            console.log("Game chapter progress: ", state.gameStateMeta.chapterProgress)
             return true
         }
 
         if (state.gameStateMeta.gameChapter === 0 && state.gameStateMeta.chapterProgress === 1) {
             this.commandRegistry.addChapterProgressCommands();
             this.gameStateManager.getState().gameStateMeta.chapterProgress = 2;
+            this.gameStateManager.getState().gameStateMeta.currentSong = '/reverie.mp3';
+            this.gameStateManager.getState().gameStateMeta.isPlayingSong = true;
+            console.log("Game chapter progress: ", state.gameStateMeta.chapterProgress)
             return true
         }
 
@@ -43,6 +47,7 @@ export class EventSystem {
             await new Promise(resolve => setTimeout(resolve, 12000)); // wait for the boot text to type
             this.commandRegistry.addChapterProgressCommands();
             this.gameStateManager.getState().gameStateMeta.chapterProgress = 4;
+            console.log("Game chapter progress: ", state.gameStateMeta.chapterProgress)
             return true
         }
 

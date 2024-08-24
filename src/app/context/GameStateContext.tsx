@@ -18,6 +18,11 @@ export const GameStateProvider: React.FC<GameStateProviderProps> = ({ children }
     );
 };
 
+/**
+ * Returns the current GameState, which is an instance of the GameLoop class.
+ * Must be called from a component within the GameStateProvider.
+ * @throws {Error} if called outside of a GameStateProvider.
+ */
 export const useGameState = () => {
     const context = useContext(GameStateContext);
     if (!context) {

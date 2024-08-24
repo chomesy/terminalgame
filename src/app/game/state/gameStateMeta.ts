@@ -4,6 +4,8 @@ export class GameStateMeta {
   currentObjective: string;
   discoveredHints: string[];
   isInQuicktime: boolean;
+  currentSong: string;
+  isPlayingSong: boolean;
 
   constructor() {
       this.gameChapter = 0;
@@ -11,6 +13,8 @@ export class GameStateMeta {
       this.currentObjective = 'Null';
       this.discoveredHints = [];
       this.isInQuicktime = false;
+      this.currentSong = 'reverie.mp3';
+      this.isPlayingSong = false;
   }
 
   updateObjective(newObjective: string): void {

@@ -11,6 +11,13 @@ export class MainframeService {
     this.playerCharacterRepository = new PlayerCharacterRepository();
   }
 
+  /**
+   * Creates a new mainframe for the given character
+   * @param characterId The id of the character
+   * @param systemName The name of the system
+   * @returns The newly created mainframe
+   * @throws Error if the character does not exist
+   */
   async createMainframe(characterId: string, systemName: string): Promise<IMainframe> {
     // Check if the character exists
     const character = await this.playerCharacterRepository.getPlayerCharacterById(characterId);

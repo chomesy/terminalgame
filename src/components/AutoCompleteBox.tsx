@@ -22,10 +22,6 @@ export default function AutoCompleteBox (AutoCompleteBoxProps: AutoCompleteBoxPr
     //else setInput(inputString.split(' '));
   }, [inputString]);
 
-  useEffect(() => {
-    console.log("Autocom UE. Options: ", options);
-  }, [options]);
-
   const handleValueChange = (event: any, newValue: string[] | null) => {
     if (newValue) {
       setInput(newValue);
@@ -50,7 +46,7 @@ export default function AutoCompleteBox (AutoCompleteBoxProps: AutoCompleteBoxPr
       options = {options}
       ListboxProps={{ sx: {lineHeight: '8px', fontSize: '12px', fontFamily: 'monospace', backgroundColor: 'transparent', color: 'grey', margin: '0px', padding: '0px', } }}
       slotProps={{
-        paper : {sx: {backgroundColor: 'black', color: 'grey', border: 'none', padding: '0px', zIndex: '9999'}},
+        paper : { variant : 'outlined', sx: {backgroundColor: 'black', width: '50%',color: 'grey', border: 'none', padding: '0px', zIndex: '9999'}},
       }}
       ChipProps={{variant: 'outlined', size: 'small', color: 'success', sx: {color: 'grey', borderRadius: '3px', fontFamily: 'monospace', fontSize: '14px', margin: '0px', padding: '0px',}}}
       renderInput={
