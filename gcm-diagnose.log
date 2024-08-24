@@ -1,0 +1,154 @@
+﻿Diagnose log at 2024-08-24T22:30:49Z
+
+AppPath: /usr/local/bin/git-credential-manager
+InstallDir: /usr/local/share/gcm-core/
+Version: 2.5.1+90d5f897f164a8fe07d2aa3bf7db439b0b4e03ea
+
+------------
+Diagnostic: Environment
+Skipped: False
+Success: True
+Exception: None
+Log:
+OSType: macOS
+OSVersion: 14.6.1
+Reading environment variables... OK
+ Variables:
+XPC_FLAGS=0x0
+TERM_PROGRAM_VERSION=1.92.2
+SHELL=/bin/zsh
+ORIGINAL_XDG_CURRENT_DESKTOP=undefined
+COLORTERM=truecolor
+VSCODE_INJECTION=1
+__CF_USER_TEXT_ENCODING=0x1F5:0x0:0x0
+NVM_INC=/Users/nick/.nvm/versions/node/v20.15.1/include/node
+PWD=/Users/nick/code/terminalgame/terminalgame
+PATH=/Users/nick/.nvm/versions/node/v20.15.1/bin:/Library/Frameworks/Python.framework/Versions/3.12/bin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/usr/local/share/dotnet:~/.dotnet/tools:/Users/nick/.nvm/versions/node/v20.15.1/bin:/Library/Frameworks/Python.framework/Versions/3.12/bin
+TMPDIR=/var/folders/qk/1_0430_n3ngb7d5gn9_p95rm0000gn/T/
+TERM_PROGRAM=vscode
+NVM_DIR=/Users/nick/.nvm
+__CFBundleIdentifier=com.microsoft.VSCode
+VSCODE_GIT_ASKPASS_EXTRA_ARGS=
+LOGNAME=nick
+OLDPWD=/Users/nick/code/terminalgame/terminalgame
+GIT_ASKPASS=/Applications/Visual Studio Code.app/Contents/Resources/app/extensions/git/dist/askpass.sh
+LANG=en_US.UTF-8
+TERM=xterm-256color
+MallocNanoZone=0
+USER=nick
+XPC_SERVICE_NAME=0
+VSCODE_GIT_ASKPASS_NODE=/Applications/Visual Studio Code.app/Contents/Frameworks/Code Helper (Plugin).app/Contents/MacOS/Code Helper (Plugin)
+ZDOTDIR=/Users/nick
+VSCODE_GIT_ASKPASS_MAIN=/Applications/Visual Studio Code.app/Contents/Resources/app/extensions/git/dist/askpass-main.js
+HOME=/Users/nick
+NVM_CD_FLAGS=-q
+COMMAND_MODE=unix2003
+NVM_BIN=/Users/nick/.nvm/versions/node/v20.15.1/bin
+VSCODE_GIT_IPC_HANDLE=/var/folders/qk/1_0430_n3ngb7d5gn9_p95rm0000gn/T/vscode-git-e9d23349ad.sock
+SHLVL=1
+USER_ZDOTDIR=/Users/nick
+SSH_AUTH_SOCK=/private/tmp/com.apple.launchd.TFJhutSSF0/Listeners
+_=/usr/local/bin/git-credential-manager
+GIT_TRACE2_PARENT_SID=ee0739fc-eb1f-4d08-a025-2465950b295d
+
+
+------------
+Diagnostic: File system
+Skipped: False
+Success: True
+Exception: None
+Log:
+Temporary directory is '/var/folders/qk/1_0430_n3ngb7d5gn9_p95rm0000gn/T/'...
+Checking basic file I/O...
+Writing to temporary file '/var/folders/qk/1_0430_n3ngb7d5gn9_p95rm0000gn/T/99b34117a7d18d308d01a8b0'... OK
+Reading from temporary file '/var/folders/qk/1_0430_n3ngb7d5gn9_p95rm0000gn/T/99b34117a7d18d308d01a8b0'... OK
+Deleting temporary file '/var/folders/qk/1_0430_n3ngb7d5gn9_p95rm0000gn/T/99b34117a7d18d308d01a8b0'... OK
+Testing IFileSystem instance...
+UserHomePath: /Users/nick
+UserDataDirectoryPath: /Users/nick/.gcm
+GetCurrentDirectory(): /Users/nick/code/terminalgame/terminalgame
+
+------------
+Diagnostic: Networking
+Skipped: False
+Success: True
+Exception: None
+Log:
+Checking networking and HTTP stack...
+Creating HTTP client... OK
+IsNetworkAvailable: True
+Sending HEAD request to http://example.com...Sending HEAD request to https://example.com... OK
+ OK
+Acquiring free TCP port... OK
+Testing local HTTP loopback connections...
+Creating new HTTP listener for http://localhost:63902/... OK
+Waiting for loopback connection... OK
+Writing response... OK
+Waiting for response data... OK
+Loopback connection data OK
+
+------------
+Diagnostic: Git
+Skipped: False
+Success: True
+Exception: None
+Log:
+Getting Git version... OK
+Git version is '2.39.3 (Apple Git-146)'
+Locating current repository...Git repository at '/Users/nick/code/terminalgame/terminalgame/.git'
+ OK
+Listing all Git configuration... OK
+Git configuration:
+file:/Library/Developer/CommandLineTools/usr/share/git-core/gitconfig	credential.helper=osxkeychain
+file:/Library/Developer/CommandLineTools/usr/share/git-core/gitconfig	init.defaultbranch=main
+file:/Users/nick/.gitconfig	user.name=Nick Chomut
+file:/Users/nick/.gitconfig	user.email=nchomut@gmail.com
+file:/Users/nick/.gitconfig	core.editor=code --wait
+file:/Users/nick/.gitconfig	credential.helper=
+file:/Users/nick/.gitconfig	credential.helper=/usr/local/share/gcm-core/git-credential-manager
+file:/Users/nick/.gitconfig	credential.https://dev.azure.com.usehttppath=true
+file:.git/config	core.repositoryformatversion=0
+file:.git/config	core.filemode=true
+file:.git/config	core.bare=false
+file:.git/config	core.logallrefupdates=true
+file:.git/config	core.ignorecase=true
+file:.git/config	core.precomposeunicode=true
+
+
+------------
+Diagnostic: Credential storage
+Skipped: False
+Success: True
+Exception: None
+Log:
+ICredentialStore instance is of type: CredentialStore
+Writing test credential... OK
+Reading test credential... OK
+Deleting test credential... OK
+
+------------
+Diagnostic: Microsoft authentication (AAD/MSA)
+Skipped: False
+Success: True
+Exception: None
+Log:
+Broker is not enabled.
+Flow type is: Auto
+Gathering MSAL token cache data... OK
+CacheDirectory: /Users/nick/.local/.IdentityService
+CacheFileName: msal.cache
+CacheFilePath: /Users/nick/.local/.IdentityService/msal.cache
+MacKeyChainAccountName: MSALCache
+MacKeyChainServiceName: Microsoft.Developer.IdentityService
+Creating cache helper... OK
+Verifying MSAL token cache persistence... OK
+
+------------
+Diagnostic: GitHub API
+Skipped: False
+Success: True
+Exception: None
+Log:
+Using 'https://github.com/' as API target.
+Querying '/meta' endpoint... OK
+
