@@ -12,10 +12,10 @@ export class UserInformation {
   }
 
   login(username: string, password: string): string {
-      if (username === 'slovak' && password === 'password123') {
+      if (username === 'dBradshaw' && password === 'GermanicFrogs28') {
           this.username = username;
           this.password = password;
-          this.permissionLevel = 'SLOVAK';
+          this.permissionLevel = 'User';
           this.loggedIn = true;
           return `Login Successful. Permission level: ${this.permissionLevel}`;
       }

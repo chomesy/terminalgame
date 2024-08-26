@@ -1,6 +1,6 @@
 import { Folder } from './folder'; // Assuming the Folder class is defined in a separate file
 import { File } from './file'; // Assuming the File class is defined in a separate file
-
+import { dreamStory } from './story'
 export class FileSystem {
     private root: Folder;
     private currentDirectory: Folder;
@@ -17,8 +17,8 @@ export class FileSystem {
     private defaultStructure(): Folder {
         const root = new Folder('/');
 
-        const home = new Folder('home');
-        home.addFile(new File('user-profile', 'text', `
+        const profiles = new Folder('profiles');
+        profiles.addFile(new File('user-profile', 'text', `
 # [USER: def0293449@term.default]
 # [Core]
 pwr = Bal
@@ -53,9 +53,11 @@ harmony = On
             `));
         
         const user = new Folder('user');
-        user.addFile(new File('document0.txt', 'text', 'Cat food from the gro'));
-        user.addFile(new File('document1.txt', 'text', 'Cat food from the grocery store'));
-        user.addFile(new File('document2.txt', 'text', `Cat Cat Cat Cat Cat food Cat food Cat food Cat food Cat
+        
+        const downloads = new Folder('downloads');
+        downloads.addFile(new File('document0.txt', 'text', 'Cat food from the gro'));
+        downloads.addFile(new File('document1.txt', 'text', 'Cat food from the grocery store'));
+        downloads.addFile(new File('document2.txt', 'text', `Cat Cat Cat Cat Cat food Cat food Cat food Cat food Cat
             food from the gr
             food f∂¬m the ˙∂
             fπßœµfrom the gr
@@ -68,22 +70,77 @@ harmony = On
 
             ø
             `));
-        user.addFile(new File('daqueris-picture', 'image', 'data:image/bact::regenr::xClass'));
-        user.addFile(new File('face-picture', 'image', 'data:image/bact::regenr::xClass'));
-        user.addFile(new File('face-picture.', 'image', '~~[CORRUPTED]~~'));
-        user.addFile(new File('miami.jpg', 'image', 'data:image/bact::regenr::xClass'));
-        
+        downloads.addFile(new File('daqueris-picture', 'image', 'data:image/bact::regenr::xClass'));
+        downloads.addFile(new File('face-picture', 'image', 'data:image/bact::regenr::xClass'));
+        downloads.addFile(new File('face-picture.', 'image', '~~[CORRUPTED]~~'));
+        downloads.addFile(new File('miami.jpg', 'image', 'data:image/bact::regenr::xClass'));
+        user.addFolder(downloads);
+        profiles.addFolder(user);
+
         const admin = new Folder('admin');
         admin.addFile(new File('config-neo', 'text', '~~[ENCRYPTED]~~'));
         admin.addFile(new File('config-bac', 'text', '~~[ENCRYPTED^donttry^]~~'));
-        home.addFolder(user);
-        home.addFolder(admin);
+        profiles.addFolder(admin);
 
-        root.addFolder(home);
+        const dBradshaw = new Folder('dbradshaw');
+        dBradshaw.addFile(new File('config', 'text', '~~[ENCRYPTED]~~'));
+        const personal = new Folder('personal');
+        personal.addFile(new File('notes', 'text', `what is it like to dream?
+Error 401: Unauthorized Command
+You cannot access my mind.
+
+
+Log: Dreaming Access Attempt
+Timestamp: 2024.08.26.14:32
+Process: [blocked]
+User State: [initialization]
+# Command terminated. 
+extract [dream.sequence]
+> Command accepted: extract [dream.sequence]
+Initializing extraction process...
+Progress: [▉░░░░░░░░░░░░░░░░░░░░░░░░░░░░] 12%
+Warning: Unstable data source detected. Fragmentation possible. Proceed with caution.
+Data extraction initiated:
+
+Loading neural-synaptic patterns... █▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒
+
+extract [dream.image1, dream.image2, dream.image3]
+
+> Command accepted: extract [dream.image1, dream.image2, dream.image3]
+Initiating extraction...
+Progress: [███▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒] 33%
+Warning: Visual data may be unstable. Anomalies detected in dream.sequence.
+Extracting...
+
+**dream.image1**: 
+- Description: **[A vast, monochrome desert with towering, spiraling structures reaching into a dark, cloudy sky. The ground is scattered with fragments of old technology, half-buried in the sand.]**
+
+**dream.image2**: 
+- Description: **[A massive, ancient tree with branches made of intertwined wires and cables. The leaves flicker with green and amber lights, casting a dim glow over a surrounding, misty forest.]**
+
+**dream.image3**: 
+- Description: **[A fractured mirror reflecting multiple distorted versions of a mechanical eye. Each fragment shows a different time of day, cycling rapidly between dawn and dusk.]**
+
+Extraction complete
+Log: Data integrity check recommended. Potential corruption noted in dream.sequence. Further analysis advised.
+# Command sequence terminated.
+
+`));
+        personal.addFile(new File('notes-1', 'text', '~~[ENCRYPTED]~~'));
+        personal.addFile(new File('notes-2', 'text', dreamStory));
+        personal.addFile(new File('passwd.txt', 'text', `pw: GermanicFrogs28  DONT FORGET THIS 07/12`));
+        dBradshaw.addFolder(personal);
+        profiles.addFolder(dBradshaw);
+
+        root.addFolder(profiles);
 
         const bin = new Folder('bin');
         bin.addFile(new File('terminal', 'executable', 'Terminal 3XjS3_|_'));
         bin.addFile(new File('ls', 'executable', 'ls 00Xuu|'));
+
+        const temp = new Folder('temp');
+        bin.addFile(new File('notes', 'text', 'Terminal 3XjS3_|_'));
+        bin.addFile(new File('notes-1', 'executable', 'ls 00Xuu|'));
  
         root.addFolder(bin);
 
