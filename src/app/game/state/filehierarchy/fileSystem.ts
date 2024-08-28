@@ -1,6 +1,6 @@
 import { Folder } from './folder'; // Assuming the Folder class is defined in a separate file
 import { File } from './file'; // Assuming the File class is defined in a separate file
-import { dreamStory } from './story'
+import { dreamStory } from './staticAssets/story'
 export class FileSystem {
     private root: Folder;
     private currentDirectory: Folder;

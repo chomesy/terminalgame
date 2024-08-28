@@ -152,3 +152,14 @@ It blinked at the morning, the circuits all humming,
 But knew in its code that the Wozzle was coming.
 —--------------------------------------------------------------
 `
+export const frostyPoem=`
+Why wait for Science to supply the how
+When any amateur can tell it now?
+The way to go away should be the same
+As fifty million years ago we came-
+If anyone remembers how that was.
+I have a theory, but it hardly does.
+`
+export const frostyPoem2=`
+
+`
